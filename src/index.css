@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+:root {
+  --bg: 255 255 255;           /* white (background) */
+  --bg-secondary: 223 224 226; /* light gray (secondary background) */
+  --text: 0 0 0;               /* black (text) */
+  --primary: 59 130 246;       /* blue (primary accent) */
+  --secondary: 107 114 128;    /* gray (secondary accent) */
+}
+
+[data-theme="dark"] {
+  --bg: 17 24 39;              /* dark navy (background) */
+  --bg-secondary: 31 41 55;    /* deep gray-blue (secondary background) */
+  --text: 255 255 255;         /* white (text) */
+  --primary: 59 130 246;       /* blue (primary accent) */
+  --secondary: 156 163 175;    /* light gray (secondary accent) */
+}
+
+/* Hide scrollbar in Chrome, Safari, and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar in IE, Edge, and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
