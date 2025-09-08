@@ -1,11 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { themeColors } from "../constants/classes.js";
 import { ToggleButton, LogoutButton, AuthRenderer } from "./export.js";
-import { useAuth } from "../context/authContext.jsx";
+import classNames from "classnames";
 
 function Navbar() {
   const location = useLocation();
-  const {user} = useAuth();
 
   const navItems = [
     { name: "Home", path: "/", alwaysRender: true },
@@ -15,7 +14,7 @@ function Navbar() {
   ];
 
   return (
-    <nav className={`bg-${themeColors.bg} text-black w-full shadow-md`}>
+    <nav className={classNames(themeColors["bg"], themeColors["text"], "w-full shadow-md")}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           
@@ -52,7 +51,7 @@ function Navbar() {
           </div>
             
           {/* Theme Toggle Button */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-10">
             <AuthRenderer authentication={true}>
               <LogoutButton/>
             </AuthRenderer>

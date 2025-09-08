@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { documentationData } from "../constants/index.jsx";
+import { themeColors } from '../constants/classes.js';
 
 function Docs() {
     const [selectedCategory, setSelectedCategory] = useState(0);
@@ -7,9 +8,9 @@ function Docs() {
     const data = documentationData[selectedCategory].endpoints[selectedEndpoint];
 
     return (
-      <div className="flex h-screen">
+      <div className="flex h-full">
         {/* Sidebar */}
-        <aside className="w-64 bg-slate-100 border-r border-slate-300 dark:border-slate-700 p-4 overflow-y-auto">
+        <aside className="w-64 p-4 overflow-y-auto">
           {documentationData.map((platform, catIndex) => (
             <div key={catIndex} className="mb-6">
               <h3 className="text-lg font-bold mb-3 border-b border-gray-500">{platform.category}</h3>
@@ -24,7 +25,7 @@ function Docs() {
                     className={`cursor-pointer px-3 py-2 rounded-md text-sm ${
                       selectedCategory === catIndex && selectedEndpoint === epIndex
                         ? "bg-blue-600 text-white"
-                        : "hover:bg-slate-200 dark:hover:bg-slate-800"
+                        : `${themeColors["bg-secondary"]}`
                     }`}
                   >
                     {ep.title}
@@ -42,7 +43,7 @@ function Docs() {
           {/* Description */}
           <div className="space-y-2 mb-6">
             {data.description.map((desc, i) => (
-              <p key={i} className="text-gray-700 dark:text-gray-300">
+              <p key={i}>
                 {desc}
               </p>
             ))}
@@ -51,11 +52,11 @@ function Docs() {
           {/* Request Info */}
           <div className="flex items-center gap-3 mb-6">
             <span
-              className={`px-3 py-1 text-sm font-semibold rounded-md bg-${data.request.color}/20 text-${data.request.color}`}
+              className={`px-3 py-1 text-sm font-semibold rounded-md bg-[${data.request.color}]/20 text-[${data.request.color}]`}
             >
               {data.request.type}
             </span>
-            <span className="font-mono text-sm bg-slate-200 dark:bg-slate-800 px-3 py-2 rounded">
+            <span className="font-mono text-sm px-3 py-2 rounded">
               {data.request.url}
             </span>
           </div>
@@ -65,7 +66,7 @@ function Docs() {
             <div className="mb-8">
               <h3 className="text-xl font-semibold mb-3">Parameters</h3>
               <table className="w-full border border-slate-300 dark:border-slate-700 rounded-md">
-                <thead className="bg-slate-200 dark:bg-slate-800">
+                <thead>
                   <tr>
                     <th className="px-4 py-2 text-left">Name</th>
                     <th className="px-4 py-2 text-left">Type</th>
@@ -75,7 +76,7 @@ function Docs() {
                 </thead>
                 <tbody>
                   {data.parameters.map((param, idx) => (
-                    <tr key={idx} className="border-t border-slate-300 dark:border-slate-700">
+                    <tr key={idx} className="border-t">
                       <td className="px-4 py-2 font-mono">{param.name}</td>
                       <td className="px-4 py-2">{param.type}</td>
                       <td className="px-4 py-2">{param.example}</td>
@@ -91,7 +92,7 @@ function Docs() {
           <div className="mb-8">
             <h3 className="text-xl font-semibold mb-3">Example</h3>
             <div className="flex items-center gap-3 mb-3">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700">
+              <button className="px-4 py-2 bg-blue-600 rounded-md shadow hover:bg-blue-700">
                 Run
               </button>
               <span
@@ -102,16 +103,16 @@ function Docs() {
               <input
                 type="text"
                 defaultValue={data.example.request}
-                className="flex-1 px-3 py-2 font-mono border rounded-md bg-slate-100 dark:bg-slate-800 dark:text-gray-200"
+                className="flex-1 px-3 py-2 font-mono border rounded-md"
               />
             </div>
-            <pre className="bg-slate-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
+            <pre className="text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
               {JSON.stringify(data.example.response, null, 2)}
             </pre>
           </div>
 
           {/* Quotas */}
-          <div className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+          <div className="mt-6 text-sm">
             {data.quotasInfo}
           </div>
         </main>

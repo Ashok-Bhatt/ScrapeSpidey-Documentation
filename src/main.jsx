@@ -16,7 +16,7 @@ const router = createBrowserRouter(
       children: [
         {
           path: "/",
-          element: <Home/>
+          element: <Home/>,
         },
         {
           path: "/docs",
@@ -36,7 +36,7 @@ const router = createBrowserRouter(
         },
         {
           path: "*",
-          element: <PageNotFound/>
+          element: <PageNotFound/>,
         }
       ]
     }

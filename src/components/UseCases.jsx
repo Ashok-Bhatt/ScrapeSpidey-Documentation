@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { apiUseCases } from "../constants/index.jsx"
+import { themeColors } from '../constants/classes.js';
 
 function UseCases() {
   const [useCaseNo, setUseCaseNo] = useState(0);
 
   return (
-    <section className="py-20 px-6 bg-slate-50 dark:bg-slate-900">
+    <section className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
-        <h2 className="text-white text-4xl font-bold text-center mb-12">
+        <h2 className="text-4xl font-bold text-center mb-12">
           Use Cases
         </h2>
 
@@ -20,8 +21,8 @@ function UseCases() {
               onClick={() => setUseCaseNo(index)}
               className={`flex items-center gap-3 px-6 py-3 rounded-xl shadow-md transition-all duration-300 
                 ${useCaseNo === index 
-                  ? "bg-blue-600 text-white shadow-lg scale-105" 
-                  : "bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 hover:scale-105 hover:shadow-lg"}
+                  ? "bg-blue-600 shadow-lg scale-105" 
+                  : `${themeColors["bg-secondary"]} hover:scale-105 hover:shadow-lg`}
               `}
             >
               <span className="text-2xl">{useCase.logo}</span>
@@ -37,7 +38,7 @@ function UseCases() {
             <h3 className="text-2xl font-bold">
               {apiUseCases[useCaseNo].title}
             </h3>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
+            <p className="text-lg">
               {apiUseCases[useCaseNo].text}
             </p>
           </div>

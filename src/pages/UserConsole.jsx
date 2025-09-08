@@ -1,51 +1,39 @@
 import React, { useState } from "react";
 import {Profile, Dashboard} from "../components/export.js";
+import { themeColors } from "../constants/classes.js";
 
 function UserConsole() {
   const [active, setActive] = useState("dashboard");
 
-  const handleSignOut = () => {
-    alert("Signed out!");
-    // add sign out logic here
-  };
-
   return (
-    <div className="flex h-screen">
+    <div className="flex h-full">
       {/* Sidebar */}
-      <div className="w-60 bg-gray-900 text-white flex flex-col justify-between">
+      <div className="w-60 flex flex-col justify-between border-r-1 border-gray-500">
         <div className="p-4 space-y-4">
           <h2 className="text-xl font-bold mb-6">My Console</h2>
           <nav className="flex flex-col space-y-2">
             <button
               onClick={() => setActive("dashboard")}
-              className={`text-left px-3 py-2 rounded hover:bg-gray-700 ${
-                active === "dashboard" ? "bg-gray-700" : ""
+              className={`text-left px-3 py-2 rounded ${themeColors["bg-secondary"]} ${
+                active === "dashboard" ? "bg-blue-600" : ""
               }`}
             >
               Dashboard
             </button>
             <button
               onClick={() => setActive("profile")}
-              className={`text-left px-3 py-2 rounded hover:bg-gray-700 ${
-                active === "profile" ? "bg-gray-700" : ""
+              className={`text-left px-3 py-2 rounded ${themeColors["bg-secondary"]} ${
+                active === "profile" ? "bg-blue-600" : ""
               }`}
             >
               Profile
             </button>
           </nav>
         </div>
-        <div className="p-4">
-          <button
-            onClick={handleSignOut}
-            className="w-full px-3 py-2 bg-red-500 rounded hover:bg-red-600"
-          >
-            Sign Out
-          </button>
-        </div>
       </div>
 
       {/* Right Content */}
-      <div className="flex-1 bg-gray-50">
+      <div className="flex-1">
         {active === "dashboard" && (
           <Dashboard/>
         )}

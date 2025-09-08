@@ -2,7 +2,7 @@ import React from 'react'
 
 function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-20 px-10">
+    <section className="py-20 px-10">
       <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
         
         {/* Left Content */}
@@ -10,11 +10,11 @@ function HeroSection() {
           <h3 className="text-5xl font-extrabold leading-tight">
             All your coding profiles <br /> in one API
           </h3>
-          <p className="text-lg text-gray-300">
-            Scrape Spidey explores platforms like <span className="font-semibold text-white">LeetCode, CodeChef, GeeksforGeeks,</span> 
-            and <span className="font-semibold text-white">Codeforces</span>, bringing all your coding data together.
+          <p className="text-lg">
+            Scrape Spidey explores platforms like <span className="font-semibold">LeetCode, CodeChef, GeeksforGeeks,</span> 
+            and <span className="font-semibold">Codeforces</span>, bringing all your coding data together.
           </p>
-          <p className="text-lg text-gray-300">
+          <p className="text-lg">
             From solved problems and streaks to contest history, ratings, and achievements — 
             everything is captured in one unified view. Whether you’re building dashboards, 
             analyzing performance, or showcasing your journey, Scrape Spidey makes it simple 

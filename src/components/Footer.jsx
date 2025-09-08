@@ -4,15 +4,15 @@ import { ExternalLink } from "lucide-react"; // for external product links
 
 function Footer() {
   return (
-    <footer className="bg-slate-900 text-gray-300 py-12 px-6">
+    <footer className="py-12 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10">
         
         {/* Company */}
         <div>
-          <h4 className="text-lg font-semibold text-white mb-4">Company</h4>
+          <h4 className="text-lg font-semibold mb-4">Company</h4>
           <ul className="space-y-2">
             <li>
-              <Link to="/about" className="hover:text-white transition">
+              <Link to="/about" className="transition">
                 About us
               </Link>
             </li>
@@ -21,15 +21,15 @@ function Footer() {
 
         {/* Legal */}
         <div>
-          <h4 className="text-lg font-semibold text-white mb-4">Legal</h4>
+          <h4 className="text-lg font-semibold mb-4">Legal</h4>
           <ul className="space-y-2">
             <li>
-              <Link to="/terms" className="hover:text-white transition">
+              <Link to="/terms" className="transition">
                 Terms and Conditions
               </Link>
             </li>
             <li>
-              <Link to="/privacy-policy" className="hover:text-white transition">
+              <Link to="/privacy-policy" className="transition">
                 Privacy Policy
               </Link>
             </li>
@@ -38,15 +38,15 @@ function Footer() {
 
         {/* Info */}
         <div>
-          <h4 className="text-lg font-semibold text-white mb-4">Info</h4>
+          <h4 className="text-lg font-semibold mb-4">Info</h4>
           <ul className="space-y-2">
             <li>
-              <Link to="/faqs" className="hover:text-white transition">
+              <Link to="/faqs" className="transition">
                 FAQ
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-white transition">
+              <Link to="/contact" className="transition">
                 Contact us
               </Link>
             </li>
@@ -55,15 +55,15 @@ function Footer() {
 
         {/* API Resources */}
         <div>
-          <h4 className="text-lg font-semibold text-white mb-4">API Resources</h4>
+          <h4 className="text-lg font-semibold mb-4">API Resources</h4>
           <ul className="space-y-2">
             <li>
-              <Link to="/docs" className="hover:text-white transition">
+              <Link to="/docs" className="transition">
                 Full documentation
               </Link>
             </li>
             <li>
-              <Link to="/updates" className="hover:text-white transition">
+              <Link to="/updates" className="transition">
                 Updates
               </Link>
             </li>
@@ -72,14 +72,14 @@ function Footer() {
 
         {/* Other Products */}
         <div>
-          <h4 className="text-lg font-semibold text-white mb-4">Other Products</h4>
+          <h4 className="text-lg font-semibold mb-4">Other Products</h4>
           <ul className="space-y-2">
             <li>
               <a
                 href="https://queryforge.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 hover:text-white transition"
+                className="flex items-center gap-1 transition"
               >
                 QueryForge <ExternalLink size={14} />
               </a>

@@ -23,10 +23,10 @@ export default function AuthPage() {
 
   return (
     <div
-      className={`flex items-center justify-center flex-grow bg-${themeColors.bg} text-${themeColors.text}`}
+      className={`flex items-center justify-center h-full flex-grow`}
     >
-      <div className="w-full max-w-md p-8 rounded-2xl shadow-lg bg-white dark:bg-[rgb(var(--bg-secondary))]">
-        <h2 className={`text-2xl font-bold mb-6 text-center text-${themeColors.primary}`}>
+      <div className={`w-full max-w-md p-8 rounded-2xl shadow-lg ${themeColors["bg"]}`}>
+        <h2 className={`text-2xl font-bold mb-6 text-center ${themeColors["primary"]}`}>
           {isSignUp ? "Create Account" : "Welcome Back"}
         </h2>
 
@@ -37,7 +37,7 @@ export default function AuthPage() {
             <input
               type="email"
               {...register("email", { required: "Email is required" })}
-              className={`w-full px-4 py-2 rounded-lg border bg-${themeColors.bg} text-${themeColors.text} focus:outline-none focus:ring-2 focus:ring-${themeColors.primary}`}
+              className={`w-full px-4 py-2 rounded-lg border ${themeColors["bg"]} ${themeColors["text"]} focus:outline-none focus:ring-2 focus:ring-${themeColors["primary"]}`}
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -50,7 +50,7 @@ export default function AuthPage() {
             <input
               type="password"
               {...register("password", { required: "Password is required" })}
-              className={`w-full px-4 py-2 rounded-lg border bg-${themeColors.bg} text-${themeColors.text} focus:outline-none focus:ring-2 focus:ring-${themeColors.primary}`}
+              className={`w-full px-4 py-2 rounded-lg border ${themeColors["bg"]} ${themeColors["text"]} focus:outline-none focus:ring-2 focus:ring-${themeColors.primary}`}
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
@@ -60,7 +60,7 @@ export default function AuthPage() {
           {/* Submit */}
           <button
             type="submit"
-            className={`w-full py-2 rounded-lg text-white bg-${themeColors.primary} hover:bg-${themeColors.secondary} transition`}
+            className={`w-full py-2 rounded-lg text-white ${themeColors["bg-primary"]} hover:${themeColors["bg-secondary"]} transition`}
           >
             {isSignUp ? "Sign Up" : "Login"}
           </button>
@@ -71,7 +71,7 @@ export default function AuthPage() {
           {isSignUp ? "Already have an account?" : "Don’t have an account?"}{" "}
           <button
             onClick={() => setIsSignUp(!isSignUp)}
-            className={`font-semibold text-${themeColors.primary} hover:underline`}
+            className={`font-semibold ${themeColors["primary"]} hover:underline`}
           >
             {isSignUp ? "Login" : "Sign Up"}
           </button>

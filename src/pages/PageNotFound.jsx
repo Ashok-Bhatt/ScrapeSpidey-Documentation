@@ -5,10 +5,10 @@ import { themeColors } from "../constants/classes";
 function PageNotFound() {
 
   return (
-    <div className={classNames(`flex flex-col flex-grow items-center justify-center`, themeColors.bg, themeColors.text)}>
+    <div className={`flex flex-col h-full flex-grow items-center justify-center`}>
       <h1 className="text-9xl font-bold text-indigo-600">404</h1>
       <h2 className="mt-4 text-3xl font-semibold">Page Not Found</h2>
-      <p className="mt-2 text-gray-600 text-center px-4">
+      <p className="mt-2 text-center px-4">
         Oops! The page you are looking for does not exist or has been moved.
       </p>
       <Link
