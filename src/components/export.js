@@ -3,6 +3,7 @@ import ToggleButton from "./ToggleButton";
 import HeroSection from "./HeroSection";
 import UseCases from "./UseCases";
 import Footer from "./Footer";
+import LogoutButton from "./LogoutButton";
 
 export {
     Navbar,
@@ -10,4 +11,5 @@ export {
     HeroSection,
     UseCases,
     Footer,
+    LogoutButton,
 }

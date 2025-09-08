@@ -2,15 +2,18 @@ import { Toaster } from "react-hot-toast";
 import {Navbar} from "./components/export.js";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
-import axiosInstance from "./utils/axiosInstance.js";
 import {useAuth} from "./context/authContext.jsx"
 
 function App() {
 
-  const {checkAuth} = useAuth();
+  const {checkAuth, user, token} = useAuth();
 
   useEffect(()=>{
-    checkAuth();
+    const fn = async () => {
+      await checkAuth();
+    }
+
+    fn();
   }, []);
 
   return (

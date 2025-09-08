@@ -13,19 +13,19 @@ export default function AuthProvider ({children}) {
     })());
 
     useEffect(()=>{
-        console.log(token, typeof token)
         localStorage.setItem("token", token);
     }, [token]);
 
-    const checkAuth = () => {
+    const checkAuth = async () => {
         if (token){
             axiosInstance
             .get(
                 `/api/v1/user/auth/check`, 
-                {withCredentials: true, headers: {Authorization: `Bearer ${token}`}}
+                {headers: {Authorization: `Bearer ${token}`}}
             )
             .then((res)=>{
-                console.log(res.data);
+                const data = res.data;
+                setUser(data);
             })
             .catch((error)=>{
                 console.log("no logged in user");
@@ -39,10 +39,14 @@ export default function AuthProvider ({children}) {
         axiosInstance
         .post("/api/v1/user/signup", data)
         .then((res)=>{
-            toast.success('Account created successfully!');
+            if (res.status < 400){
+                toast.success('Account created successfully!');   
+            } else {
+                toast.error('Unable to create account!');
+            }
         })
         .catch((error)=>{
-            toast.success('Unable to create account!');
+            toast.error('Unable to create account!');
         })
     }
 
@@ -68,19 +72,25 @@ export default function AuthProvider ({children}) {
         })
     }
 
-    const logout = () => {
+    const logout = async () => {
         axiosInstance
         .post("/api/v1/user/logout")
         .then((res)=>{
-
+            if (res.status < 400){
+                setToken(null);
+                setUser(null);
+                toast.success('Successfully logged out!');
+            } else {
+                toast.error('Unable to logout!');
+            }
         })
         .catch((error)=>{
-
+            toast.error('Unable to logout!');
         })
     }
 
     return (
-        <AuthContext.Provider value={{user, setUser, checkAuth, signUp, login, logout}}>
+        <AuthContext.Provider value={{user, setUser, checkAuth, signUp, login, logout, token,  setToken}}>
             {children},
         </AuthContext.Provider>
     )

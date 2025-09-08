@@ -1,9 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { themeColors } from "../constants/classes.js";
-import { ToggleButton } from "./export.js";
+import { ToggleButton, LogoutButton } from "./export.js";
+import { useAuth } from "../context/authContext.jsx";
 
 function Navbar() {
   const location = useLocation();
+  const {user} = useAuth();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -46,7 +48,8 @@ function Navbar() {
           </div>
             
           {/* Theme Toggle Button */}
-          <div>
+          <div className="flex">
+            <LogoutButton/>
             <ToggleButton/>
           </div>
         </div>
