@@ -3,8 +3,10 @@ import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Auth, UserConsole, Home, Docs, PageNotFound } from './pages/export.js'
+import {AuthLayout, Dashboard} from "./components/export.js"
 import ThemeProvider from "./context/themeContext.jsx"
 import AuthProvider from './context/authContext.jsx'
+
 
 const router = createBrowserRouter(
   [
@@ -22,11 +24,15 @@ const router = createBrowserRouter(
         },
         {
           path: "/auth",
-          element: <Auth/>,
+          element: (<AuthLayout authentication={false}>
+            <Auth/>
+          </AuthLayout>),
         },
         {
           path: "/user-console",
-          element: <UserConsole/>,
+          element: (<AuthLayout authentication={true}>
+            <UserConsole/>
+          </AuthLayout>),
         },
         {
           path: "*",

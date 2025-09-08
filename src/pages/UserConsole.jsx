@@ -1,43 +1,5 @@
 import React, { useState } from "react";
-import { Eye, EyeOff, Copy } from "lucide-react";
-
-function Profile({ email, apiKey }) {
-  const [showApiKey, setShowApiKey] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(apiKey);
-    alert("API Key copied!");
-  };
-
-  return (
-    <div className="h-full p-6 space-y-6">
-      <h2 className="text-2xl font-bold">Profile</h2>
-      <div className="space-y-2">
-        <p>
-          <span className="font-semibold">Email: </span> {email}
-        </p>
-        <div className="flex items-center gap-3">
-          <span className="font-semibold">API Key: </span>
-          <span className="px-2 py-1 bg-gray-100 rounded">
-            {showApiKey ? apiKey : "••••••••••••••••••••"}
-          </span>
-          <button
-            onClick={() => setShowApiKey(!showApiKey)}
-            className="p-1 hover:bg-gray-200 rounded"
-          >
-            {showApiKey ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
-          <button
-            onClick={handleCopy}
-            className="p-1 hover:bg-gray-200 rounded"
-          >
-            <Copy size={18} />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+import {Profile, Dashboard} from "../components/export.js";
 
 function UserConsole() {
   const [active, setActive] = useState("dashboard");
@@ -85,15 +47,10 @@ function UserConsole() {
       {/* Right Content */}
       <div className="flex-1 bg-gray-50">
         {active === "dashboard" && (
-          <div className="p-6">
-            <h2 className="text-2xl font-bold">Dashboard</h2>
-            <p className="mt-2 text-gray-600">
-              Dashboard content goes here...
-            </p>
-          </div>
+          <Dashboard/>
         )}
         {active === "profile" && (
-          <Profile email="ashok@example.com" apiKey="89123443-a4a9-409e-a478-25f146dhib77" />
+          <Profile/>
         )}
       </div>
     </div>

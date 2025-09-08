@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { themeColors } from "../constants/classes.js";
-import { ToggleButton, LogoutButton } from "./export.js";
+import { ToggleButton, LogoutButton, AuthRenderer } from "./export.js";
 import { useAuth } from "../context/authContext.jsx";
 
 function Navbar() {
@@ -8,14 +8,14 @@ function Navbar() {
   const {user} = useAuth();
 
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "Auth", path: "/auth" },
-    { name: "Documentation", path: "/docs" },
-    { name: "Dashboard", path: "/user-console" },
+    { name: "Home", path: "/", alwaysRender: true },
+    { name: "Documentation", path: "/docs", alwaysRender: true },
+    { name: "Login", path: "/auth", alwaysRender: false, authentication: false },
+    { name: "My console", path: "/user-console", alwaysRender:false, authentication: true },
   ];
 
   return (
-    <nav className={`bg-${themeColors.bg} text-${themeColors.text} w-full shadow-md`}>
+    <nav className={`bg-${themeColors.bg} text-black w-full shadow-md`}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           
@@ -32,24 +32,30 @@ function Navbar() {
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`px-3 py-2 rounded-lg font-medium transition ${
-                    isActive
-                      ? `bg-${themeColors.primary} text-white`
-                      : `hover:bg-${themeColors.secondary} hover:text-white`
-                  }`}
-                >
-                  {item.name}
-                </Link>
+                item.alwaysRender ? (
+                  <Link key={item.path} to={item.path}
+                    className={`px-3 py-2 rounded-lg font-medium transition`}
+                  >
+                    {item.name}
+                  </Link>
+                ): (
+                  <AuthRenderer key={item.path} authentication={item.authentication}>
+                    <Link to={item.path}
+                      className={`px-3 py-2 rounded-lg font-medium transition`}
+                    >
+                      {item.name}
+                    </Link>
+                  </AuthRenderer>
+                )
               );
             })}
           </div>
             
           {/* Theme Toggle Button */}
-          <div className="flex">
-            <LogoutButton/>
+          <div className="flex items-center gap-5">
+            <AuthRenderer authentication={true}>
+              <LogoutButton/>
+            </AuthRenderer>
             <ToggleButton/>
           </div>
         </div>
