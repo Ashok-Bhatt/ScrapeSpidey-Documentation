@@ -1,6 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function HeroSection() {
+
+  const navigate = useNavigate();
+
   return (
     <section className="py-20 px-10">
       <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12">
@@ -21,10 +25,10 @@ function HeroSection() {
             with a single, easy-to-use API.
           </p>
           <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-            <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-semibold shadow-lg transition">
+            <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl font-semibold shadow-lg transition" onClick={()=>navigate("/docs")}>
               Get Started
             </button>
-            <button className="px-6 py-3 border border-gray-400 hover:border-white rounded-xl font-semibold transition">
+            <button className="px-6 py-3 border border-gray-400 hover:border-white rounded-xl font-semibold transition" onClick={()=>navigate("/docs")}>
               View Docs
             </button>
           </div>

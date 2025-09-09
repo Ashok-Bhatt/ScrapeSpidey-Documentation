@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react'
-import { documentationData } from "../constants/index.jsx";
-import { themeColors } from '../constants/classes.js';
+import {documentationData} from "../constants/index.jsx";
+import {themeColors} from '../constants/classes.js';
 import {useTheme} from "../context/themeContext.jsx"
+import {useApi} from "../context/apiKeyContext.jsx"
+import {useAuth} from "../context/authContext.jsx"
 import {Play} from "lucide-react";
-import axiosInstance from '../utils/axiosInstance.js';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -16,10 +17,17 @@ function Docs() {
     const apiRef = useRef(null); 
     const data = documentationData[selectedCategory].endpoints[selectedEndpoint];
     const {theme} = useTheme();
+    const {apiKey, apiKeyAutoAttach, setApiKey} = useApi();
+    const {user} = useAuth();
 
     useEffect(()=>{
-      setSampleApiResponse(JSON.stringify(data.example.response, null, 2));
-      setSampleApiRequest(data.example.request);
+
+      if (user) setApiKey(user.apiKey);
+
+      const sampleRequest = data.example.request;
+      const sampleResponse = data.example.response;
+      setSampleApiResponse(JSON.stringify(sampleResponse, null, 2));
+      setSampleApiRequest(apiKeyAutoAttach ? sampleRequest + apiKey : sampleRequest);
     }, [selectedCategory, selectedEndpoint]);
 
     const runSampleAPI = async () => {

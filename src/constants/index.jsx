@@ -53,7 +53,7 @@ const documentationData = [
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/user/ashokbhacjou",
+                    request: serverBaseUrl + "/api/v1/gfg/user/ashokbhacjou?apiKey=",
                     response : {
                         "username": "ashokbhacjou",
                         "avatar": "https://www.geeksforgeeks.org//_next/image/?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fauth%2Fprofile%2F87f1gz2lt16vki1r4fe7&w=256&q=75",
@@ -99,7 +99,7 @@ const documentationData = [
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/user/submissions/ashokbhacjou",
+                    request: serverBaseUrl + "/api/v1/gfg/user/submissions/ashokbhacjou?apiKey=",
                     response : {
                         "2025-08-19": 1,
                         "2025-08-18": 1,
@@ -244,7 +244,7 @@ const documentationData = [
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/hackerrank/user/ashokbhatt2048",
+                    request: serverBaseUrl + "/api/v1/hackerrank/user/ashokbhatt2048?apiKey=",
                     response : {
                         "username": "ashokbhatt2048",
                         "profileImage": "https://hrcdn.net/s3_pub/hr-avatars/ddec9e33-da14-4125-ac8b-9b07cd880a84/150x150.png",
@@ -316,7 +316,7 @@ const documentationData = [
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/interviewbit/user/princesingh2002",
+                    request: serverBaseUrl + "/api/v1/interviewbit/user/princesingh2002?apiKey=",
                     response : {
                         "username": "princesingh2002",
                         "totalScore": 119453,
@@ -450,7 +450,7 @@ const documentationData = [
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/codechef/user/ashokbhatt",
+                    request: serverBaseUrl + "/api/v1/codechef/user/ashokbhatt?apiKey=",
                     response : {
                         "username": "ashokbhatt",
                         "problemsSolved": 70,
@@ -498,7 +498,7 @@ const documentationData = [
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/codechef/user/submissions/ashokbhatt",
+                    request: serverBaseUrl + "/api/v1/codechef/user/submissions/ashokbhatt?apiKey=",
                     response : {
                         "2025-3-6": 0,
                         "2025-3-7": 0,

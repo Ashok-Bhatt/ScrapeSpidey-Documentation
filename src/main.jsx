@@ -6,6 +6,7 @@ import { Auth, UserConsole, Home, Docs, PageNotFound } from './pages/export.js'
 import {AuthLayout, Dashboard} from "./components/export.js"
 import ThemeProvider from "./context/themeContext.jsx"
 import AuthProvider from './context/authContext.jsx'
+import ApiKeyProvider from './context/apiKeyContext.jsx'
 
 
 const router = createBrowserRouter(
@@ -45,8 +46,10 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <ThemeProvider>
-      <RouterProvider router={router}/>
-    </ThemeProvider>
+    <ApiKeyProvider>
+      <ThemeProvider>
+        <RouterProvider router={router}/>
+      </ThemeProvider>
+    </ApiKeyProvider>
   </AuthProvider>
 )

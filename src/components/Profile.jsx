@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Eye, EyeOff, Copy } from "lucide-react";
 import toast from "react-hot-toast";
 import {useAuth} from "../context/authContext.jsx";
+import {useApi} from "../context/apiKeyContext.jsx";
 
 function Profile() {
   const [showApiKey, setShowApiKey] = useState(false);
   const {user} = useAuth();
+  const {apiKeyAutoAttach, toggleApiKeyAutoAttach} = useApi();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(user.apiKey);
@@ -36,6 +38,10 @@ function Profile() {
           >
             <Copy size={18} />
           </button>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="font-semibold">Paste Your API Key to sample API calls in the documentation</span>
+          <button onClick={toggleApiKeyAutoAttach} className={`min-w-20 py-1 px-5 font-bold rounded-lg ${apiKeyAutoAttach ? 'bg-red-500 text-white' : 'bg-green-500 text-black'}`}>{apiKeyAutoAttach ? "No" : "Yes"}</button>
         </div>
       </div>
     </div>

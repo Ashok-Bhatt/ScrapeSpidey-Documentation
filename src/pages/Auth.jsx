@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { themeColors } from "../constants/classes.js";
 import {useAuth} from "../context/authContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const {login, signUp} = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,9 +17,9 @@ export default function AuthPage() {
 
   const onSubmit = (data) => {
     if (isSignUp) {
-      signUp(data);
+      signUp(data, ()=>navigate("/docs"));
     } else {
-      login(data);
+      login(data, ()=>navigate("/docs"));
     }
   };
 

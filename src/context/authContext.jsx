@@ -50,7 +50,7 @@ export default function AuthProvider ({children}) {
         })
     }
 
-    const login = async (data) => {
+    const login = async (data, callback) => {
         axiosInstance
         .post("/api/v1/user/login", data)
         .then((res)=>{
@@ -59,6 +59,7 @@ export default function AuthProvider ({children}) {
                 setUser(data.data);
                 setToken(data.token);
                 toast.success('Successfully logged in!');
+                callback();
             } else {
                 setUser(null);
                 setToken(null);
