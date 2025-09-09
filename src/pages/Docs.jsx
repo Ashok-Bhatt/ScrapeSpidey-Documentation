@@ -1,11 +1,47 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { documentationData } from "../constants/index.jsx";
 import { themeColors } from '../constants/classes.js';
+import {useTheme} from "../context/themeContext.jsx"
+import {Play} from "lucide-react";
+import axiosInstance from '../utils/axiosInstance.js';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function Docs() {
     const [selectedCategory, setSelectedCategory] = useState(0);
     const [selectedEndpoint, setSelectedEndpoint] = useState(0);
+    const [sampleApiRequest, setSampleApiRequest] = useState("");
+    const [sampleApiResponse, setSampleApiResponse] = useState("");
+    const [isRunning, setIsRunning] = useState(false);
+    const apiRef = useRef(null); 
     const data = documentationData[selectedCategory].endpoints[selectedEndpoint];
+    const {theme} = useTheme();
+
+    useEffect(()=>{
+      setSampleApiResponse(JSON.stringify(data.example.response, null, 2));
+      setSampleApiRequest(data.example.request);
+    }, [selectedCategory, selectedEndpoint]);
+
+    const runSampleAPI = async () => {
+      setIsRunning(true);
+
+      axios
+      .get(apiRef.current.value)
+      .then((res)=>{
+        if (res.status < 400){
+          const data = res.data
+          setSampleApiResponse(JSON.stringify(data, null, 2));
+        } else {
+          toast.error("Something Went Wrong!");
+        }
+      })
+      .catch((error)=>{
+        toast.error("Something went Wrong!");
+      })
+      .finally(()=>{
+        setIsRunning(false);
+      })
+    }
 
     return (
       <div className="flex h-full">
@@ -37,7 +73,7 @@ function Docs() {
         </aside>
 
         {/* Main Body */}
-        <main className="flex-1 p-8 overflow-y-auto">
+        <main className="flex-1 p-8 overflow-y-auto no-scrollbar">
           <h2 className="text-3xl font-bold mb-4">{data.title}</h2>
 
           {/* Description */}
@@ -50,13 +86,13 @@ function Docs() {
           </div>
 
           {/* Request Info */}
-          <div className="flex items-center gap-3 mb-6">
+          <div className={`flex items-center gap-3 mb-6`}>
             <span
-              className={`px-3 py-1 text-sm font-semibold rounded-md bg-[${data.request.color}]/20 text-[${data.request.color}]`}
+              className={`px-3 py-1 text-sm font-semibold rounded-md bg-${data.request.color}/20 text-${data.request.color}`}
             >
               {data.request.type}
             </span>
-            <span className="font-mono text-sm px-3 py-2 rounded">
+            <span className={`font-mono text-sm px-3 py-2 rounded ${themeColors["bg-secondary"]}`}>
               {data.request.url}
             </span>
           </div>
@@ -66,7 +102,7 @@ function Docs() {
             <div className="mb-8">
               <h3 className="text-xl font-semibold mb-3">Parameters</h3>
               <table className="w-full border border-slate-300 dark:border-slate-700 rounded-md">
-                <thead>
+                <thead className={`${themeColors["bg-secondary"]}`}>
                   <tr>
                     <th className="px-4 py-2 text-left">Name</th>
                     <th className="px-4 py-2 text-left">Type</th>
@@ -92,27 +128,30 @@ function Docs() {
           <div className="mb-8">
             <h3 className="text-xl font-semibold mb-3">Example</h3>
             <div className="flex items-center gap-3 mb-3">
-              <button className="px-4 py-2 bg-blue-600 rounded-md shadow hover:bg-blue-700">
-                Run
+              <button className={`px-2 py-2 rounded-full shadow ${themeColors["bg-secondary"]} border-1 border-gray-500`}>
+                {isRunning ? <img src='/Images/run_button_active.gif' className='w-7.5 h-7.5 rounded-full'/> : <Play className='h-7.5 w-7.5' onClick={runSampleAPI}/>}
               </button>
               <span
-                className={`px-3 py-1 text-sm font-semibold rounded-md bg-${data.request.color}/20 text-${data.request.color}`}
+                className={`px-3 py-1 text-sm font-semibold rounded-md text-${data.request.color}`}
               >
                 {data.request.type}
               </span>
               <input
                 type="text"
-                defaultValue={data.example.request}
+                onChange={(e)=>setSampleApiRequest(e.target.value)}
+                value={sampleApiRequest}
+                ref={apiRef}
                 className="flex-1 px-3 py-2 font-mono border rounded-md"
               />
             </div>
-            <pre className="text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
-              {JSON.stringify(data.example.response, null, 2)}
+            <pre className={`${theme=="dark" ? 'text-green-400' : 'text-green-600'} p-4 rounded-lg overflow-x-auto text-sm max-h-100 overflow-auto ${themeColors["bg-secondary"]}`}>
+              {sampleApiResponse}
             </pre>
           </div>
 
           {/* Quotas */}
           <div className="mt-6 text-sm">
+            <h3 className="text-xl font-semibold mb-3">Quotas</h3>
             {data.quotasInfo}
           </div>
         </main>

@@ -8,8 +8,8 @@ function Profile() {
   const {user} = useAuth();
 
   const handleCopy = () => {
-    console.log(user.apiKey);
     navigator.clipboard.writeText(user.apiKey);
+    toast.success("API Key Copied!");
   };
 
   return (
