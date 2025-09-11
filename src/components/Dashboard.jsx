@@ -10,14 +10,15 @@ const Dashboard = ({ apiKey }) => {
   const [requestsData, setRequestsData] = useState([]);
   const [dashboardOptionNo, setDashboardOptionNo] = useState(0);
   const [interval, setInterval] = useState(30 * 60 * 1000);
-  const {user} = useAuth();
+  const {user, token} = useAuth();
   const dashboardOption = ["Daily API Usage", "Requests Made"];
 
   useEffect(() => {
     const fetchDailyUsage = async () => {
       try {
         const res = await axiosInstance.get(`/api/v1/analytics/daily-usage`, {
-          params: { apiKey: user.apiKey, lastDays: 7 }
+          params: { lastDays: 7 },
+          headers: {Authorization: `Bearer ${token}`},
         });
         const data = res.data;
         data.map((element)=>(element["apiPointsUsed"] = DAILY_API_POINT_LIMIT - element["remainingApiPoints"]))
@@ -26,14 +27,15 @@ const Dashboard = ({ apiKey }) => {
         console.error("Error fetching daily usage:", err);
       }
     };
-    fetchDailyUsage();
+    if (user) fetchDailyUsage();
   }, []);
 
   useEffect(() => {
     const fetchRequestsData = async () => {
       try {
         const res = await axiosInstance.get(`/api/v1/analytics/requests`, {
-          params: { apiKey: user.apiKey, previousInterval: interval }
+          params: { previousInterval: interval },
+          headers: {Authorization: `Bearer ${token}`},
         });
 
         const data = res.data;
@@ -53,7 +55,7 @@ const Dashboard = ({ apiKey }) => {
         console.error("Error fetching requests data:", err);
       }
     };
-    fetchRequestsData();
+    if (user) fetchRequestsData();
   }, [interval]);
 
   const intervals = [
@@ -114,9 +116,7 @@ const Dashboard = ({ apiKey }) => {
           />
           <YAxis dataKey="y" name="Requests made" />
           <Tooltip
-            formatter={(val, name) =>
-              name === "Time" ? new Date(val).toLocaleString() : `${val} ms`
-            }
+            formatter={(val, name) =>`${val} Requests`}
           />
           <Legend />
           <Line type="monotone" dataKey="y" stroke="#8884d8" name="Requests" dot={true} />
