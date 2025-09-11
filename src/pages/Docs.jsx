@@ -2,9 +2,8 @@ import React, {useEffect, useRef, useState} from 'react'
 import {documentationData} from "../constants/index.jsx";
 import {themeColors} from '../constants/classes.js';
 import {useTheme} from "../context/themeContext.jsx"
-import {useApi} from "../context/apiKeyContext.jsx"
 import {useAuth} from "../context/authContext.jsx"
-import {Play} from "lucide-react";
+import {Play, Copy, RefreshCcw} from "lucide-react";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -17,17 +16,14 @@ function Docs() {
     const apiRef = useRef(null); 
     const data = documentationData[selectedCategory].endpoints[selectedEndpoint];
     const {theme} = useTheme();
-    const {apiKey, apiKeyAutoAttach, setApiKey} = useApi();
     const {user} = useAuth();
 
     useEffect(()=>{
 
-      if (user) setApiKey(user.apiKey);
-
       const sampleRequest = data.example.request;
       const sampleResponse = data.example.response;
       setSampleApiResponse(JSON.stringify(sampleResponse, null, 2));
-      setSampleApiRequest(apiKeyAutoAttach ? sampleRequest + apiKey : sampleRequest);
+      setSampleApiRequest(sampleRequest);
     }, [selectedCategory, selectedEndpoint]);
 
     const runSampleAPI = async () => {
@@ -51,8 +47,30 @@ function Docs() {
       })
     }
 
+    const attachApiKey = () => {
+      const regex = /apiKey=[a-zA-Z0-9-]*/g;
+      const match = sampleApiRequest.match(regex);
+      
+      if (match){
+        const newSampleRequest = sampleApiRequest.replaceAll(regex, "&apiKey=" + user.apiKey);
+        setSampleApiRequest(newSampleRequest);
+      } else {
+        const newSampleRequest = sampleApiRequest + "&apiKey=" + user.apiKey;
+        setSampleApiRequest(newSampleRequest);
+      }
+    }
+
+    const refreshSampleApiRequest = ()=>{
+      setSampleApiRequest(data.example.request);
+    }
+
+    const handleCopy = () => {
+      navigator.clipboard.writeText(sampleApiRequest);
+      toast.success("API Endpoint Copied!");
+    };
+
     return (
-      <div className="flex h-full">
+      <div className="flex h-full w-full">
         {/* Sidebar */}
         <aside className="w-64 p-4 overflow-y-auto">
           {documentationData.map((platform, catIndex) => (
@@ -133,11 +151,11 @@ function Docs() {
           )}
 
           {/* Example Request */}
-          <div className="mb-8">
+          <div className="mb-8 w-full">
             <h3 className="text-xl font-semibold mb-3">Example</h3>
             <div className="flex items-center gap-3 mb-3">
               <button className={`px-2 py-2 rounded-full shadow ${themeColors["bg-secondary"]} border-1 border-gray-500`}>
-                {isRunning ? <img src='/Images/run_button_active.gif' className='w-7.5 h-7.5 rounded-full'/> : <Play className='h-7.5 w-7.5' onClick={runSampleAPI}/>}
+                {isRunning ? <img src='/Images/run_button_active.gif' className='w-7.5 h-7.5 rounded-full'/> : <Play className='h-5 w-5' onClick={runSampleAPI}/>}
               </button>
               <span
                 className={`px-3 py-1 text-sm font-semibold rounded-md text-${data.request.color}`}
@@ -151,8 +169,13 @@ function Docs() {
                 ref={apiRef}
                 className="flex-1 px-3 py-2 font-mono border rounded-md"
               />
+              <Copy size={18} onClick={handleCopy}/>
+              <RefreshCcw size={18} onClick={refreshSampleApiRequest}/>
             </div>
-            <pre className={`${theme=="dark" ? 'text-green-400' : 'text-green-600'} p-4 rounded-lg overflow-x-auto text-sm max-h-100 overflow-auto ${themeColors["bg-secondary"]}`}>
+            {user && <div className='flex w-full justify-end'>
+              <button className='justify-self-end-safe px-2 py-1 rounded-lg bg-green-500' onClick={attachApiKey}>Attach API Key</button>
+            </div>}
+            <pre className={`${theme=="dark" ? 'text-green-400' : 'text-green-600'} mt-5 p-4 rounded-lg overflow-x-auto text-sm max-h-100 overflow-auto ${themeColors["bg-secondary"]}`}>
               {sampleApiResponse}
             </pre>
           </div>

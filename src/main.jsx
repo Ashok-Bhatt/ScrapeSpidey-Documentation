@@ -3,10 +3,9 @@ import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Auth, UserConsole, Home, Docs, PageNotFound } from './pages/export.js'
-import {AuthLayout, Dashboard} from "./components/export.js"
+import {AuthLayout} from "./components/export.js"
 import ThemeProvider from "./context/themeContext.jsx"
 import AuthProvider from './context/authContext.jsx'
-import ApiKeyProvider from './context/apiKeyContext.jsx'
 
 
 const router = createBrowserRouter(
@@ -46,10 +45,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <ApiKeyProvider>
-      <ThemeProvider>
-        <RouterProvider router={router}/>
-      </ThemeProvider>
-    </ApiKeyProvider>
+    <ThemeProvider>
+      <RouterProvider router={router}/>
+    </ThemeProvider>
   </AuthProvider>
 )

@@ -3,7 +3,6 @@ import {Navbar} from "./components/export.js";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import {useAuth} from "./context/authContext.jsx"
-import classNames from "classnames";
 import { themeColors } from "./constants/classes.js";
 
 function App() {
