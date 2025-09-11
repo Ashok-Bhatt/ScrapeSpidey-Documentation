@@ -1,8 +1,9 @@
-import { title } from "framer-motion/client";
 import {LayoutDashboard, ChartSpline, Brain, SquareCode}  from "lucide-react";
 import {conf} from "../utils/config.js"
 
 const {serverBaseUrl} = conf;
+
+const DAILY_API_POINT_LIMIT = 25;
 
 const apiUseCases = [
     {
@@ -695,6 +696,7 @@ const documentationData = [
 ]
 
 export {
+    DAILY_API_POINT_LIMIT,
     apiUseCases,
     documentationData,
 }
