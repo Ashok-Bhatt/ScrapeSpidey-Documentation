@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../utils/axiosInstance.js"
-import {BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, ScatterChart, Scatter} from "recharts";
+import {BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, LineChart, Line, ReferenceLine} from "recharts";
 import {useAuth} from "../context/authContext.jsx"
 import {themeColors} from "../constants/classes.js"
 import {DAILY_API_POINT_LIMIT} from "../constants/index.jsx"
@@ -35,11 +35,20 @@ const Dashboard = ({ apiKey }) => {
         const res = await axiosInstance.get(`/api/v1/analytics/requests`, {
           params: { apiKey: user.apiKey, previousInterval: interval }
         });
-        const formatted = res.data.map(req => ({
-          x: new Date(req.createdAt).getTime(),
-          y: req.responseTimeMs || 0
-        }));
-        setRequestsData(formatted);
+
+        const data = res.data;
+        const beginningTime = new Date().getTime() - interval;
+        const formattedData = [];
+        const partitionSize = 12
+        
+        for (let i=0; i<=partitionSize; i++) formattedData[i] = {x:i, y:0};
+
+        for (let i=0; i<data.length; i++){
+            const endpointTime = new Date(data[i].createdAt).getTime();
+            let x = parseInt(((endpointTime - beginningTime)*partitionSize)/interval);
+            formattedData[x].y++;
+        }
+        setRequestsData(formattedData);
       } catch (err) {
         console.error("Error fetching requests data:", err);
       }
@@ -62,7 +71,7 @@ const Dashboard = ({ apiKey }) => {
 
       <div className="flex gap-2">
         {dashboardOption.map((option, index)=>(
-          <div className="rounded-full py-1 px-5 border-1 border-gray-500" style={{background: dashboardOptionNo==index ? "#00ff00" : "inherit"}} onClick={()=>setDashboardOptionNo(index)} key={option}>{option}</div>
+          <button className="rounded-full py-1 px-5 border-1 border-gray-500 hover:cursor-pointer" style={{background: dashboardOptionNo==index ? "#00ff00" : "inherit"}} onClick={()=>setDashboardOptionNo(index)} key={option}>{option}</button>
         ))}
       </div>
 
@@ -71,11 +80,12 @@ const Dashboard = ({ apiKey }) => {
         <BarChart width={700} height={300} data={dailyData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis />
+          <YAxis domain={[DAILY_API_POINT_LIMIT + 5, 'auto']}/>
           <Tooltip />
           <Legend />
           <Bar dataKey="requestsMade" fill="#8884d8" name="Requests Made" />
           <Bar dataKey="apiPointsUsed" fill="#82ca9d" name="API Points Used" />
+          <ReferenceLine y={DAILY_API_POINT_LIMIT} stroke="red" strokeDasharray="3 3" label="Daily API Points Limit" />
         </BarChart>
       </div>}
 
@@ -94,24 +104,23 @@ const Dashboard = ({ apiKey }) => {
             ))}
           </select>
         </div>
-        <ScatterChart width={700} height={300}>
+        <LineChart width={700} height={300} data={requestsData}>
           <CartesianGrid />
           <XAxis
             dataKey="x"
             name="Time"
             type="number"
             domain={["auto", "auto"]}
-            tickFormatter={(ts) => new Date(ts).toLocaleTimeString()}
           />
-          <YAxis dataKey="y" name="Response Time (ms)" />
+          <YAxis dataKey="y" name="Requests made" />
           <Tooltip
-            cursor={{ strokeDasharray: "3 3" }}
             formatter={(val, name) =>
               name === "Time" ? new Date(val).toLocaleString() : `${val} ms`
             }
           />
-          <Scatter name="Requests" data={requestsData} fill="#8884d8" />
-        </ScatterChart>
+          <Legend />
+          <Line type="monotone" dataKey="y" stroke="#8884d8" name="Requests" dot={true} />
+        </LineChart>
       </div>}
     </div>
   );
