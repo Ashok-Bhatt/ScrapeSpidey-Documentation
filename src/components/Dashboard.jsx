@@ -9,9 +9,14 @@ const Dashboard = ({ apiKey }) => {
   const [dailyData, setDailyData] = useState([]);
   const [requestsData, setRequestsData] = useState([]);
   const [dashboardOptionNo, setDashboardOptionNo] = useState(0);
-  const [interval, setInterval] = useState(30 * 60 * 1000);
+  const [interval, setInterval] = useState(30*60*1000);
+  const [labels, setLabels] = useState([]);
   const {user, token} = useAuth();
-  const dashboardOption = ["Daily API Usage", "Requests Made"];
+  const dashboardOption = ["Daily API Usage", "Requests Made"]; 
+
+  useEffect(()=>{
+    setLabels(getLabels(interval));
+  }, [interval])
 
   useEffect(() => {
     const fetchDailyUsage = async () => {
@@ -41,7 +46,7 @@ const Dashboard = ({ apiKey }) => {
         const data = res.data;
         const beginningTime = new Date().getTime() - interval;
         const formattedData = [];
-        const partitionSize = 12
+        const partitionSize = labels.length;
         
         for (let i=0; i<=partitionSize; i++) formattedData[i] = {x:i, y:0};
 
@@ -67,6 +72,66 @@ const Dashboard = ({ apiKey }) => {
     { label: "Last 15 days", value: 15 * 24 * 60 * 60 * 1000 },
     { label: "Last 1 month", value: 30 * 24 * 60 * 60 * 1000 }
   ];
+
+  const getLabels = (interval) => {
+    const now = new Date();
+    const labels = [];
+
+    const formatHM = (d) => d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const formatDay = (d) => d.toLocaleDateString([], { weekday: "long" }); // "Monday"
+    const formatDate = (d) => d.toLocaleDateString([], { day: "2-digit", month: "short" }); // "12 Apr"
+
+    if (interval === 30 * 60 * 1000) {
+      // 30 minutes → 10 partitions (3 minutes each)
+      const step = interval / 10;
+      for (let i = 0; i <= 10; i++) {
+        const t = new Date(now.getTime() - (10 - i) * step);
+        labels.push(formatHM(t));
+      }
+    } else if (interval === 60 * 60 * 1000) {
+      // 1 hour → 12 partitions (5 minutes each)
+      const step = interval / 12;
+      for (let i = 0; i <= 12; i++) {
+        const t = new Date(now.getTime() - (12 - i) * step);
+        labels.push(formatHM(t));
+      }
+    } else if (interval === 6 * 60 * 60 * 1000) {
+      // 6 hours → 12 partitions (30 minutes each)
+      const step = interval / 12;
+      for (let i = 0; i <= 12; i++) {
+        const t = new Date(now.getTime() - (12 - i) * step);
+        labels.push(formatHM(t));
+      }
+    } else if (interval === 24 * 60 * 60 * 1000) {
+      // 1 day → 8 partitions (3 hours each)
+      const step = interval / 8;
+      for (let i = 0; i <= 8; i++) {
+        const t = new Date(now.getTime() - (8 - i) * step);
+        labels.push(formatHM(t));
+      }
+    } else if (interval === 7 * 24 * 60 * 60 * 1000) {
+      // 1 week → 7 partitions (days)
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+        labels.push(i === 0 ? "Today" : formatDay(d));
+      }
+    } else if (interval === 15 * 24 * 60 * 60 * 1000) {
+      // 15 days → 15 partitions (per day)
+      for (let i = 14; i >= 0; i--) {
+        labels.push(i === 0 ? "Today" : `${i} day${i > 1 ? "s" : ""} ago`);
+      }
+    } else if (interval === 30 * 24 * 60 * 60 * 1000) {
+      // 1 month → 6 partitions, 5 days each
+      const step = 5 * 24 * 60 * 60 * 1000;
+      for (let i = 5; i >= 0; i--) {
+        const start = new Date(now.getTime() - i * step);
+        const end = new Date(start.getTime() + step - 1);
+        labels.push(`${formatDate(start)} - ${formatDate(end)}`);
+      }
+    }
+
+    return labels;
+  };
 
   return (
     <div className="w-full h-full p-6 space-y-8">
@@ -110,9 +175,8 @@ const Dashboard = ({ apiKey }) => {
           <CartesianGrid />
           <XAxis
             dataKey="x"
-            name="Time"
-            type="number"
-            domain={["auto", "auto"]}
+            ticks={labels.map((_, i) => i)}
+            tickFormatter={(i) => labels[i]}
           />
           <YAxis dataKey="y" name="Requests made" />
           <Tooltip

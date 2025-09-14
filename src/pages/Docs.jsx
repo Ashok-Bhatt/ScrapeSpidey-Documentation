@@ -155,7 +155,7 @@ function Docs() {
             <h3 className="text-xl font-semibold mb-3">Example</h3>
             <div className="flex items-center gap-3 mb-3">
               <button className={`px-2 py-2 rounded-full shadow ${themeColors["bg-secondary"]} border-1 border-gray-500`}>
-                {isRunning ? <img src='/Images/run_button_active.gif' className='w-7.5 h-7.5 rounded-full'/> : <Play className='h-5 w-5' onClick={runSampleAPI}/>}
+                {isRunning ? <img src='/Images/run_button_active.gif' className='w-5 h-5 rounded-full'/> : <Play className='h-5 w-5' onClick={runSampleAPI}/>}
               </button>
               <span
                 className={`px-3 py-1 text-sm font-semibold rounded-md text-${data.request.color}`}
