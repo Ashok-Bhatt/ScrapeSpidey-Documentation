@@ -4,7 +4,6 @@ import { ToggleButton, LogoutButton, AuthRenderer } from "./export.js";
 import classNames from "classnames";
 
 function Navbar() {
-  const location = useLocation();
 
   const navItems = [
     { name: "Home", path: "/", alwaysRender: true },
@@ -29,7 +28,6 @@ function Navbar() {
           {/* Navigation Links */}
           <div className="flex space-x-6">
             {navItems.map((item) => {
-              const isActive = location.pathname === item.path;
               return (
                 item.alwaysRender ? (
                   <Link key={item.path} to={item.path}

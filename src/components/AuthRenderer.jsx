@@ -7,7 +7,7 @@ function AuthRenderer(props) {
     const {user} = useAuth();
 
     return (
-        ((authentication && user) || (!authentication && !user)) ? children : null
+        ((authentication && user!=null) || (!authentication && user==null)) ? children : null
     )
 }
 

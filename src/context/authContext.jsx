@@ -56,7 +56,7 @@ export default function AuthProvider ({children}) {
         .then((res)=>{
             if (res.status < 400){
                 const data = res.data;
-                setUser(data.data);
+                setUser(data.user);
                 setToken(data.token);
                 toast.success('Successfully logged in!');
                 callback();
