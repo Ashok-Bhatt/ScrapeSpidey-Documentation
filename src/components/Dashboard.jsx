@@ -5,7 +5,7 @@ import {useAuth} from "../context/authContext.jsx"
 import {themeColors} from "../constants/classes.js"
 import {DAILY_API_POINT_LIMIT} from "../constants/index.jsx"
 
-const Dashboard = ({ apiKey }) => {
+const Dashboard = () => {
   const [dailyData, setDailyData] = useState([]);
   const [requestsData, setRequestsData] = useState([]);
   const [dashboardOptionNo, setDashboardOptionNo] = useState(0);
@@ -13,10 +13,6 @@ const Dashboard = ({ apiKey }) => {
   const [labels, setLabels] = useState([]);
   const {user, token} = useAuth();
   const dashboardOption = ["Daily API Usage", "Requests Made"]; 
-
-  useEffect(()=>{
-    setLabels(getLabels(interval));
-  }, [interval])
 
   useEffect(() => {
     const fetchDailyUsage = async () => {
@@ -26,7 +22,8 @@ const Dashboard = ({ apiKey }) => {
           headers: {Authorization: `Bearer ${token}`},
         });
         const data = res.data;
-        data.map((element)=>(element["apiPointsUsed"] = DAILY_API_POINT_LIMIT - element["remainingApiPoints"]))
+        data.map((element)=>(element["apiPointsUsed"] = DAILY_API_POINT_LIMIT - element["remainingApiPoints"]));
+        data.sort((a, b)=>b["date"]<a["date"] ? 1 : -1);
         setDailyData(data);
       } catch (err) {
         console.error("Error fetching daily usage:", err);
@@ -38,6 +35,9 @@ const Dashboard = ({ apiKey }) => {
   useEffect(() => {
     const fetchRequestsData = async () => {
       try {
+        const newLabels = getLabels(interval);
+        setLabels(newLabels);
+
         const res = await axiosInstance.get(`/api/v1/analytics/requests`, {
           params: { previousInterval: interval },
           headers: {Authorization: `Bearer ${token}`},
@@ -46,9 +46,9 @@ const Dashboard = ({ apiKey }) => {
         const data = res.data;
         const beginningTime = new Date().getTime() - interval;
         const formattedData = [];
-        const partitionSize = labels.length;
+        const partitionSize = newLabels.length;
         
-        for (let i=0; i<=partitionSize; i++) formattedData[i] = {x:i, y:0};
+        for (let i=0; i<partitionSize; i++) formattedData[i] = {x:i, y:0};
 
         for (let i=0; i<data.length; i++){
             const endpointTime = new Date(data[i].createdAt).getTime();
@@ -138,7 +138,7 @@ const Dashboard = ({ apiKey }) => {
 
       <div className="flex gap-2">
         {dashboardOption.map((option, index)=>(
-          <button className="rounded-full py-1 px-5 border-1 border-gray-500 hover:cursor-pointer" style={{background: dashboardOptionNo==index ? "#00ff00" : "inherit"}} onClick={()=>setDashboardOptionNo(index)} key={option}>{option}</button>
+          <button className="rounded-full py-1 px-5 border-1 border-gray-500 hover:cursor-pointer" style={{background: dashboardOptionNo==index ? "#00ff00" : "inherit", color: dashboardOptionNo==index ? "black" : "white"}} onClick={()=>setDashboardOptionNo(index)} key={option}>{option}</button>
         ))}
       </div>
 
