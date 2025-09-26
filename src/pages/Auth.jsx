@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { themeColors } from "../constants/classes.js";
-import {useAuth} from "../context/authContext.jsx";
+import { useAuth } from "../context/authContext.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function AuthPage() {
@@ -12,6 +12,7 @@ export default function AuthPage() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -23,6 +24,10 @@ export default function AuthPage() {
     }
   };
 
+  useEffect(()=>{
+    reset();
+  }, [isSignUp])
+
   return (
     <div
       className={`flex items-center justify-center h-full flex-grow`}
@@ -33,6 +38,20 @@ export default function AuthPage() {
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+
+          {/* Username */}
+          {isSignUp && <div>
+            <label className="block mb-1 font-medium">Name</label>
+            <input
+              type="text"
+              {...register("name", { required: "Name is required" })}
+              className={`w-full px-4 py-2 rounded-lg border ${themeColors["bg"]} ${themeColors["text"]} focus:outline-none focus:ring-2 focus:ring-${themeColors["primary"]}`}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+            )}
+          </div>}
+
           {/* Email */}
           <div>
             <label className="block mb-1 font-medium">Email</label>
@@ -66,6 +85,9 @@ export default function AuthPage() {
           >
             {isSignUp ? "Sign Up" : "Login"}
           </button>
+
+
+
         </form>
 
         {/* Toggle Mode */}

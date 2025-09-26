@@ -20,7 +20,7 @@ export default function AuthProvider ({children}) {
         if (token){
             axiosInstance
             .get(
-                `/api/v1/user/auth/check`, 
+                `/api/v1/user/check`, 
                 {headers: {Authorization: `Bearer ${token}`}}
             )
             .then((res)=>{
@@ -35,12 +35,16 @@ export default function AuthProvider ({children}) {
         }
     }
 
-    const signUp = async (data) => {
+    const signUp = async (data, callback) => {
         axiosInstance
         .post("/api/v1/user/signup", data)
         .then((res)=>{
             if (res.status < 400){
+                const data = res.data;
+                setUser(data.user);
+                setToken(data.token);
                 toast.success('Account created successfully!');   
+                callback();
             } else {
                 toast.error('Unable to create account!');
             }

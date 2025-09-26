@@ -138,7 +138,7 @@ const Dashboard = () => {
 
       <div className="flex gap-2">
         {dashboardOption.map((option, index)=>(
-          <button className="rounded-full py-1 px-5 border-1 border-gray-500 hover:cursor-pointer" style={{background: dashboardOptionNo==index ? "#00ff00" : "inherit", color: dashboardOptionNo==index ? "black" : "white"}} onClick={()=>setDashboardOptionNo(index)} key={option}>{option}</button>
+          <button className="rounded-full py-1 px-5 border-1 border-gray-500 hover:cursor-pointer" style={{background: dashboardOptionNo==index ? "#00ff00" : "inherit"}} onClick={()=>setDashboardOptionNo(index)} key={option}>{option}</button>
         ))}
       </div>
 
@@ -147,7 +147,7 @@ const Dashboard = () => {
         <BarChart width={700} height={300} data={dailyData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis domain={[DAILY_API_POINT_LIMIT + 5, 'auto']}/>
+          <YAxis domain={[DAILY_API_POINT_LIMIT + 5, DAILY_API_POINT_LIMIT + 5]}/>
           <Tooltip />
           <Legend />
           <Bar dataKey="requestsMade" fill="#8884d8" name="Requests Made" />
