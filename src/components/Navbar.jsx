@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { themeColors } from "../constants/classes.js";
-import { ToggleButton, LogoutButton, AuthRenderer } from "./export.js";
+import { ToggleButton, LogoutButton, AuthRenderer, AdminRenderer } from "./export.js";
 import classNames from "classnames";
 
 function Navbar() {
@@ -8,8 +8,9 @@ function Navbar() {
   const navItems = [
     { name: "Home", path: "/", alwaysRender: true },
     { name: "Documentation", path: "/docs", alwaysRender: true },
-    { name: "Login", path: "/auth", alwaysRender: false, authentication: false },
-    { name: "My console", path: "/user-console", alwaysRender:false, authentication: true },
+    { name: "Login", path: "/auth", alwaysRender: false, authentication: false, admin: false },
+    { name: "My console", path: "/user-console", alwaysRender:false, authentication: true, admin: false },
+    { name: "Users", path: "/users", alwaysRender: false, authentication: true, admin: true}
   ];
 
   return (
@@ -35,14 +36,26 @@ function Navbar() {
                   >
                     {item.name}
                   </Link>
-                ): (
-                  <AuthRenderer key={item.path} authentication={item.authentication}>
-                    <Link to={item.path}
-                      className={`px-3 py-2 rounded-lg font-medium transition`}
-                    >
-                      {item.name}
-                    </Link>
-                  </AuthRenderer>
+                ) : (
+                  (
+                    item.admin ? (
+                      <AdminRenderer key={item.path}>
+                        <Link to={item.path}
+                          className={`px-3 py-2 rounded-lg font-medium transition`}
+                        >
+                          {item.name}
+                        </Link>
+                      </AdminRenderer>
+                    ) : (
+                      <AuthRenderer key={item.path} authentication={item.authentication}>
+                        <Link to={item.path}
+                          className={`px-3 py-2 rounded-lg font-medium transition`}
+                        >
+                          {item.name}
+                        </Link>
+                      </AuthRenderer>
+                    )
+                  )
                 )
               );
             })}

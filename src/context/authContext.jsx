@@ -7,6 +7,7 @@ const AuthContext = createContext();
 export default function AuthProvider ({children}) {
 
     const [user, setUser] = useState(null);
+    const [checkingAuth, setCheckingAuth] = useState(true);
     const [token, setToken] = useState((()=>{
         if (localStorage.getItem("token")) return localStorage.getItem("token");
         else return null;
@@ -17,6 +18,9 @@ export default function AuthProvider ({children}) {
     }, [token]);
 
     const checkAuth = async () => {
+        
+        setCheckingAuth(true);
+
         if (token){
             axiosInstance
             .get(
@@ -29,9 +33,15 @@ export default function AuthProvider ({children}) {
             })
             .catch((error)=>{
                 console.log("no logged in user");
+                setUser(null);
             })
+            .finally(()=>{
+                setCheckingAuth(false);
+            });
         } else {
             console.log("Token not present");
+            setCheckingAuth(false);
+            setUser(null);
         }
     }
 
@@ -95,7 +105,7 @@ export default function AuthProvider ({children}) {
     }
 
     return (
-        <AuthContext.Provider value={{user, setUser, checkAuth, signUp, login, logout, token,  setToken}}>
+        <AuthContext.Provider value={{user, setUser, checkAuth, signUp, login, logout, token,  setToken, checkingAuth, setCheckingAuth}}>
             {children}
         </AuthContext.Provider>
     )
