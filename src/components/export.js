@@ -12,6 +12,7 @@ import UserCard from "./UserCard";
 import AdminLayout from "./AdminLayout";
 import ChangeApiLimitModal from "./ChangeApiLimitModel";
 import AdminRenderer from "./AdminRenderer";
+import Loader from "./Loader";
 
 export {
     Navbar,
@@ -27,5 +28,6 @@ export {
     UserCard,
     AdminLayout,
     ChangeApiLimitModal,
-    AdminRenderer
+    AdminRenderer,
+    Loader,
 }

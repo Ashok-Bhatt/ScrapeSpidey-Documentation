@@ -41,20 +41,31 @@ const documentationData = [
                 description : ["This endpoint will fetch the information regarding the progress made by user on geeksforgeeks platform"],
                 request: {
                     type : "GET",
-                    color: "green-500",
-                    url : serverBaseUrl + "/api/v1/gfg/user/<username>",
+                    colorClass: {
+                        text: "text-green-800",
+                        bg: "bg-green-200"
+                    },
+                    url : serverBaseUrl + "/api/v1/gfg/user/profile/<username>",
                 },
                 parameters : [
                     {
                         name : "apiKey",
                         type: "String",
                         example : "89123443-a4a9-409e-a478-25f146dhib77",
-                        description : "An unique API Key that you need to attach with every request you made for coding profiles."
+                        description : "An unique API Key that you need to attach with every request you made for coding profiles.",
+                        status: "required"
+                    },
+                    {
+                        name: "includeContests",
+                        type: "Boolean",
+                        example: "true, false",
+                        description: "Set this parameter to decide if you want to include contest data or not",
+                        status: "optional"
                     }
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/user/ashokbhacjou?apiKey=",
+                    request: serverBaseUrl + "/api/v1/gfg/user/profile/ashokbhacjou?apiKey=",
                     response : {
                         "username": "ashokbhacjou",
                         "avatar": "https://www.geeksforgeeks.org//_next/image/?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fauth%2Fprofile%2F87f1gz2lt16vki1r4fe7&w=256&q=75",
@@ -80,14 +91,17 @@ const documentationData = [
                         }
                     }
                 },
-                quotasInfo : "Calling this endpoint costs 1 API Point",
+                quotasInfo : "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points.",
             },
             {
                 title : "Submission History",
                 description : ["This endpoint will fetch the information regarding the submission made by user in current year", "Note: It will show the count of only those days where at least one submission is made."],
                 request: {
                     type : "GET",
-                    color: "green-500",
+                    colorClass: { // Added colorClass for consistency
+                        text: "text-green-800",
+                        bg: "bg-green-200"
+                    },
                     url : serverBaseUrl + "/api/v1/gfg/user/submissions/<username>",
                 },
                 parameters : [
@@ -95,7 +109,15 @@ const documentationData = [
                         name : "apiKey",
                         type: "String",
                         example : "89123443-a4a9-409e-a478-25f146dhib77",
-                        description : "An unique API Key that you need to attach with every request you made for coding profiles."
+                        description : "An unique API Key that you need to attach with every request you made for coding profiles.",
+                        status: "required" // Added status for consistency
+                    },
+                    {
+                        name: "includeContests",
+                        type: "Boolean",
+                        example: "true, false",
+                        description: "Set this parameter to decide if you want to include contest data or not",
+                        status: "optional"
                     }
                 ],
                 example : {
@@ -226,26 +248,30 @@ const documentationData = [
     }, 
     {
         category : "Hackerrank",
-        endpoints : [   
+        endpoints : [   
             {
                 title : "User Info",
                 description : ["This endpoint will fetch the information regarding the progress made by user on hackerrank platform", "Note: This endpoint does not return a lot of data unlike apis of other platforms that were returning comprehensive data like problems solved, contest data, etc. The reason behind this is the profile page of hackerrank which exposes negligible data and we are scraping data from that page only", "The data that api for hackerrank returns is username, url to user profile, list of certificates and list of badges"],
                 request: {
                     type : "GET",
-                    color: "green-500",
-                    url : serverBaseUrl + "/api/v1/hackerrank/user/<username>",
+                    colorClass: { // Added colorClass for consistency
+                        text: "text-green-800",
+                        bg: "bg-green-200"
+                    },
+                    url : serverBaseUrl + "/api/v1/hackerrank/user/profile/<username>",
                 },
                 parameters : [
                     {
                         name : "apiKey",
                         type: "String",
                         example : "89123443-a4a9-409e-a478-25f146dhib77",
-                        description : "An unique API Key that you need to attach with every request you made for coding profiles."
+                        description : "An unique API Key that you need to attach with every request you made for coding profiles.",
+                        status: "required" // Added status for consistency
                     }
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/hackerrank/user/ashokbhatt2048?apiKey=",
+                    request: serverBaseUrl + "/api/v1/hackerrank/user/profile/ashokbhatt2048?apiKey=",
                     response : {
                         "username": "ashokbhatt2048",
                         "profileImage": "https://hrcdn.net/s3_pub/hr-avatars/ddec9e33-da14-4125-ac8b-9b07cd880a84/150x150.png",
@@ -298,26 +324,30 @@ const documentationData = [
     },
     {
         category : "Interviewbit",
-        endpoints : [   
+        endpoints : [   
             {
                 title : "User Info",
                 description : ["This endpoint will fetch the information regarding the progress made by user on interviewbit platform"],
                 request: {
                     type : "GET",
-                    color: "green-500",
-                    url : serverBaseUrl + "/api/v1/interviewbit/user/<username>",
+                    colorClass: { // Added colorClass for consistency
+                        text: "text-green-800",
+                        bg: "bg-green-200"
+                    },
+                    url : serverBaseUrl + "/api/v1/interviewbit/user/profile/<username>",
                 },
                 parameters : [
                     {
                         name : "apiKey",
                         type: "String",
                         example : "89123443-a4a9-409e-a478-25f146dhib77",
-                        description : "An unique API Key that you need to attach with every request you made for coding profiles."
+                        description : "An unique API Key that you need to attach with every request you made for coding profiles.",
+                        status: "required" // Added status for consistency
                     }
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/interviewbit/user/princesingh2002?apiKey=",
+                    request: serverBaseUrl + "/api/v1/interviewbit/user/profile/princesingh2002?apiKey=",
                     response : {
                         "username": "princesingh2002",
                         "totalScore": 119453,
@@ -438,20 +468,31 @@ const documentationData = [
                 description : ["This endpoint will fetch the information regarding the progress made by user on codechef platform"],
                 request: {
                     type : "GET",
-                    color: "green-500",
-                    url : serverBaseUrl + "/api/v1/codechef/user/<username>",
+                    colorClass: { // Added colorClass for consistency
+                        text: "text-green-800",
+                        bg: "bg-green-200"
+                    },
+                    url : serverBaseUrl + "/api/v1/codechef/user/profile/<username>",
                 },
                 parameters : [
                     {
                         name : "apiKey",
                         type: "String",
                         example : "89123443-a4a9-409e-a478-25f146dhib77",
-                        description : "An unique API Key that you need to attach with every request you made for coding profiles."
+                        description : "An unique API Key that you need to attach with every request you made for coding profiles.",
+                        status: "required" // Added status for consistency
+                    },
+                    {
+                        name: "includeContests",
+                        type: "Boolean",
+                        example: "true, false",
+                        description: "Set this parameter to decide if you want to include contest data or not",
+                        status: "optional"
                     }
                 ],
                 example : {
                     text : "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/codechef/user/ashokbhatt?apiKey=",
+                    request: serverBaseUrl + "/api/v1/codechef/user/profile/ashokbhatt?apiKey=",
                     response : {
                         "username": "ashokbhatt",
                         "problemsSolved": 70,
@@ -479,14 +520,17 @@ const documentationData = [
                         ]
                     }
                 },
-                quotasInfo : "Calling this endpoint costs 1 API Point",
+                quotasInfo : "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points.",
             },
             {
                 title : "Submission History",
                 description : ["This endpoint will fetch the information regarding the submission made by user in last 6 months"],
                 request: {
                     type : "GET",
-                    color: "green-500",
+                    colorClass: { // Added colorClass for consistency
+                        text: "text-green-800",
+                        bg: "bg-green-200"
+                    },
                     url : serverBaseUrl + "/api/v1/codechef/user/submissions/<username>",
                 },
                 parameters : [
@@ -494,7 +538,8 @@ const documentationData = [
                         name : "apiKey",
                         type: "String",
                         example : "89123443-a4a9-409e-a478-25f146dhib77",
-                        description : "An unique API Key that you need to attach with every request you made for coding profiles."
+                        description : "An unique API Key that you need to attach with every request you made for coding profiles.",
+                        status: "required" // Added status for consistency
                     }
                 ],
                 example : {
@@ -691,6 +736,41 @@ const documentationData = [
                 },
                 quotasInfo : "Calling this endpoint costs 1 API Point",
             }
+        ]
+    },
+    {
+        category : "Github",
+        endpoints : [  
+            {
+                title : "User Contribution Badges",
+                description : ["This endpoint will fetch all the contribution badges achieved by user that are shown on their profile page."],
+                request: {
+                    type : "GET",
+                    colorClass: { // Added colorClass for consistency
+                        text: "text-green-800",
+                        bg: "bg-green-200"
+                    },
+                    url : serverBaseUrl + "/api/v1/github/user/badges/<username>",
+                },
+                parameters : [
+                    {
+                        name : "apiKey",
+                        type: "String",
+                        example : "89123443-a4a9-409e-a478-25f146dhib77",
+                        description : "An unique API Key that you need to attach with every request you made for coding profiles.",
+                        status: "required" // Added status for consistency
+                    }
+                ],
+                example : {
+                    text : "Try example (But use your api key first)",
+                    request: serverBaseUrl + "/api/v1/github/user/badges/Ashok-Bhatt?apiKey=",
+                    response : [
+                        "https://github.githubassets.com/assets/quickdraw-default-39c6aec8ff89.png",
+                        "https://github.githubassets.com/assets/pull-shark-default-498c279a747d.png"
+                    ],
+                },
+                quotasInfo : "Calling this endpoint costs 1 API Point",
+            },
         ]
     },
 ]

@@ -3,23 +3,25 @@ import {documentationData} from "../constants/index.jsx";
 import {themeColors} from '../constants/classes.js';
 import {useTheme} from "../context/themeContext.jsx"
 import {useAuth} from "../context/authContext.jsx"
-import {Play, Copy, RefreshCcw} from "lucide-react";
+import {Play, LoaderCircle, Copy, RefreshCcw} from "lucide-react";
+import {Loader} from "../components/export.js";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
 function Docs() {
+    const apiRef = useRef(null); 
+    const {theme} = useTheme();
+    const {user} = useAuth();
     const [selectedCategory, setSelectedCategory] = useState(0);
     const [selectedEndpoint, setSelectedEndpoint] = useState(0);
     const [sampleApiRequest, setSampleApiRequest] = useState("");
     const [sampleApiResponse, setSampleApiResponse] = useState("");
+    const [sampleApiResponseColor, setSampleApiResponseColor] = useState(theme=="dark" ? "text-green-400" : "text-green-600");
     const [isRunning, setIsRunning] = useState(false);
-    const apiRef = useRef(null); 
+    const [loaderAngle, setLoaderAngle] = useState(0);
     const data = documentationData[selectedCategory].endpoints[selectedEndpoint];
-    const {theme} = useTheme();
-    const {user} = useAuth();
 
     useEffect(()=>{
-
       const sampleRequest = data.example.request;
       const sampleResponse = data.example.response;
       setSampleApiResponse(JSON.stringify(sampleResponse, null, 2));
@@ -29,21 +31,26 @@ function Docs() {
     const runSampleAPI = async () => {
       setIsRunning(true);
 
+      const timer = setInterval(()=>{
+        setLoaderAngle((prev)=>(prev+5)%360);
+      }, 20);
+
       axios
       .get(apiRef.current.value)
       .then((res)=>{
-        if (res.status < 400){
-          const data = res.data
-          setSampleApiResponse(JSON.stringify(data, null, 2));
-        } else {
-          toast.error("Something Went Wrong!");
-        }
+        setSampleApiResponseColor(theme=="dark" ? "text-green-400" : "text-green-600");
+        const data = res.data
+        setSampleApiResponse(JSON.stringify(data, null, 2));
       })
       .catch((error)=>{
+        setSampleApiResponseColor(theme=="dark" ? "text-red-400" : "text-red-600");
         toast.error("Something went Wrong!");
+        setSampleApiResponse(error.response.data.message);
       })
       .finally(()=>{
         setIsRunning(false);
+        setLoaderAngle(0);
+        clearInterval(timer);
       })
     }
 
@@ -114,7 +121,7 @@ function Docs() {
           {/* Request Info */}
           <div className={`flex items-center gap-3 mb-6`}>
             <span
-              className={`px-3 py-1 text-sm font-semibold rounded-md bg-${data.request.color}/20 text-${data.request.color}`}
+              className={`px-3 py-1 text-sm font-semibold rounded-md ${data.request.colorClass.text} ${data.request.colorClass.bg}`}
             >
               {data.request.type}
             </span>
@@ -155,10 +162,10 @@ function Docs() {
             <h3 className="text-xl font-semibold mb-3">Example</h3>
             <div className="flex items-center gap-3 mb-3">
               <button className={`px-2 py-2 rounded-full shadow ${themeColors["bg-secondary"]} border-1 border-gray-500`}>
-                {isRunning ? <img src='/Images/run_button_active.gif' className='w-5 h-5 rounded-full'/> : <Play className='h-5 w-5' onClick={runSampleAPI}/>}
+                {isRunning ? <LoaderCircle className='h-5 w-5' style={{rotate: `${loaderAngle}deg`}}/> : <Play className='h-5 w-5' onClick={runSampleAPI}/>}
               </button>
               <span
-                className={`px-3 py-1 text-sm font-semibold rounded-md text-${data.request.color}`}
+                className={`px-3 py-1 text-sm font-semibold rounded-md ${data.request.colorClass.text} ${data.request.colorClass.bg}`}
               >
                 {data.request.type}
               </span>
@@ -175,9 +182,10 @@ function Docs() {
             {user && <div className='flex w-full justify-end'>
               <button className='justify-self-end-safe px-2 py-1 rounded-lg bg-green-500' onClick={attachApiKey}>Attach API Key</button>
             </div>}
-            <pre className={`${theme=="dark" ? 'text-green-400' : 'text-green-600'} mt-5 p-4 rounded-lg overflow-x-auto text-sm max-h-100 overflow-auto ${themeColors["bg-secondary"]}`}>
+            {!isRunning && <pre className={`${sampleApiResponseColor} mt-5 p-4 rounded-lg overflow-x-auto text-sm max-h-100 overflow-auto ${themeColors["bg-secondary"]}`}>
               {sampleApiResponse}
-            </pre>
+            </pre>}
+            {isRunning && <Loader/>}
           </div>
 
           {/* Quotas */}
