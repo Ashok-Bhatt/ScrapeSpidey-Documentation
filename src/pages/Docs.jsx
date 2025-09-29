@@ -10,12 +10,14 @@ import toast from 'react-hot-toast';
 
 function Docs() {
     const apiRef = useRef(null); 
+    const apiKeyRef = useRef(null);
     const {theme} = useTheme();
     const {user} = useAuth();
     const [selectedCategory, setSelectedCategory] = useState(0);
     const [selectedEndpoint, setSelectedEndpoint] = useState(0);
     const [sampleApiRequest, setSampleApiRequest] = useState("");
     const [sampleApiResponse, setSampleApiResponse] = useState("");
+    const [paramValues, setParamValues] = useState({});
     const [sampleApiResponseColor, setSampleApiResponseColor] = useState(theme=="dark" ? "text-green-400" : "text-green-600");
     const [isRunning, setIsRunning] = useState(false);
     const [loaderAngle, setLoaderAngle] = useState(0);
@@ -26,7 +28,30 @@ function Docs() {
       const sampleResponse = data.example.response;
       setSampleApiResponse(JSON.stringify(sampleResponse, null, 2));
       setSampleApiRequest(sampleRequest);
+
+      const initialParams = {};
+      if (data.parameters) {
+        data.parameters.forEach(param => {
+          initialParams[param.name] = "";
+        });
+      }
+      setParamValues(initialParams);
     }, [selectedCategory, selectedEndpoint]);
+
+    const handleParamChange = (name, value) => {
+      setParamValues(prev => ({
+        ...prev,
+        [name]: value,
+      }));
+
+      const url = new URL(sampleApiRequest);
+      const params = new URLSearchParams(url.search);
+
+      params.set(name, value);
+      url.search = params.toString();
+
+      setSampleApiRequest(url.toString());
+    };
 
     const runSampleAPI = async () => {
       setIsRunning(true);
@@ -58,6 +83,13 @@ function Docs() {
       const regex = /apiKey=[a-zA-Z0-9-]*/g;
       const match = sampleApiRequest.match(regex);
       
+      if (apiKeyRef.current){
+        setParamValues(prev => ({
+          ...prev,
+          apiKey: user.apiKey
+        }));
+      }
+
       if (match){
         const newSampleRequest = sampleApiRequest.replaceAll(regex, "&apiKey=" + user.apiKey);
         setSampleApiRequest(newSampleRequest);
@@ -69,6 +101,13 @@ function Docs() {
 
     const refreshSampleApiRequest = ()=>{
       setSampleApiRequest(data.example.request);
+      const initialParams = {};
+      if (data.parameters) {
+        data.parameters.forEach(param => {
+          initialParams[param.name] = "";
+        });
+      }
+      setParamValues(initialParams);
     }
 
     const handleCopy = () => {
@@ -179,9 +218,33 @@ function Docs() {
               <Copy size={18} onClick={handleCopy}/>
               <RefreshCcw size={18} onClick={refreshSampleApiRequest}/>
             </div>
-            {user && <div className='flex w-full justify-end'>
-              <button className='justify-self-end-safe px-2 py-1 rounded-lg bg-green-500' onClick={attachApiKey}>Attach API Key</button>
-            </div>}
+            {/* Parameter Inputs Below Example */}
+            {data.parameters && data.parameters.length > 0 && (
+              <div className="mb-4 flex flex-col flex-wrap gap-4">
+                {data.parameters.map((param, idx) => (
+                  <div key={idx} className="flex flex-col min-w-[180px]">
+                    <label className="text-xs font-medium mb-1">{param.name}</label>
+                    {param.name=="apiKey" ? (<input
+                      type="text"
+                      ref={apiKeyRef}
+                      value={paramValues[param.name] || ""}
+                      onChange={(e) => handleParamChange(param.name, e.target.value)}
+                      className="border px-2 py-1 rounded"
+                      placeholder={param.example}
+                    />) : (<input
+                      type="text"
+                      value={paramValues[param.name] || ""}
+                      onChange={(e) => handleParamChange(param.name, e.target.value)}
+                      className="border px-2 py-1 rounded"
+                      placeholder={param.example}
+                    />)}
+                    {user && param.name=="apiKey" && <div className='flex w-full justify-end'>
+                      <button className='justify-self-end-safe px-2 py-1 rounded-lg bg-green-500 mt-1' onClick={attachApiKey}>Attach API Key</button>
+                    </div>}
+                  </div>
+                ))}
+              </div>
+            )}
             {!isRunning && <pre className={`${sampleApiResponseColor} mt-5 p-4 rounded-lg overflow-x-auto text-sm max-h-100 overflow-auto ${themeColors["bg-secondary"]}`}>
               {sampleApiResponse}
             </pre>}

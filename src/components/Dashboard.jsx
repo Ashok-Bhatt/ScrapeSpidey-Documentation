@@ -22,7 +22,6 @@ const Dashboard = () => {
           headers: {Authorization: `Bearer ${token}`},
         });
         const data = res.data;
-        data.map((element)=>(element["apiPointsUsed"] = DAILY_API_POINT_LIMIT - element["remainingApiPoints"]));
         data.sort((a, b)=>b["date"]<a["date"] ? 1 : -1);
         setDailyData(data);
       } catch (err) {
@@ -142,17 +141,17 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {dashboardOptionNo==0 && <div>
+      {user && dashboardOptionNo==0 && <div>
         {<h2 className="text-xl font-bold mb-4">Daily API Usage (Last 7 Days)</h2>}
         <BarChart width={700} height={300} data={dailyData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis domain={[DAILY_API_POINT_LIMIT + 5, DAILY_API_POINT_LIMIT + 5]}/>
+          <YAxis domain={[user["apiPointsDailyLimit"]*1.25, user["apiPointsDailyLimit"]]*1.25}/>
           <Tooltip />
           <Legend />
           <Bar dataKey="requestsMade" fill="#8884d8" name="Requests Made" />
           <Bar dataKey="apiPointsUsed" fill="#82ca9d" name="API Points Used" />
-          <ReferenceLine y={DAILY_API_POINT_LIMIT} stroke="red" strokeDasharray="3 3" label="Daily API Points Limit" />
+          <ReferenceLine y={user["apiPointsDailyLimit"]} stroke="red" strokeDasharray="3 3" label="Daily API Points Limit" />
         </BarChart>
       </div>}
 
