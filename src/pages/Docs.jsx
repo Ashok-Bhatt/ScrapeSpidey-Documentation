@@ -23,6 +23,8 @@ function Docs() {
     const [loaderAngle, setLoaderAngle] = useState(0);
     const data = documentationData[selectedCategory].endpoints[selectedEndpoint];
 
+
+    // When user chooses option from sidebar
     useEffect(()=>{
       const sampleRequest = data.example.request;
       const sampleResponse = data.example.response;
@@ -38,6 +40,7 @@ function Docs() {
       setParamValues(initialParams);
     }, [selectedCategory, selectedEndpoint]);
 
+    // Setting the parameters value
     const handleParamChange = (name, value) => {
       setParamValues(prev => ({
         ...prev,
@@ -51,6 +54,11 @@ function Docs() {
       url.search = params.toString();
 
       setSampleApiRequest(url.toString());
+    };
+
+    // Setting the parameters value to the default ones
+    const handleSetDefault = (param) => {
+      handleParamChange(param.name, param.example);
     };
 
     const runSampleAPI = async () => {
@@ -79,25 +87,25 @@ function Docs() {
       })
     }
 
-    const attachApiKey = () => {
-      const regex = /apiKey=[a-zA-Z0-9-]*/g;
-      const match = sampleApiRequest.match(regex);
+    // const attachApiKey = () => {
+    //   const regex = /apiKey=[a-zA-Z0-9-]*/g;
+    //   const match = sampleApiRequest.match(regex);
       
-      if (apiKeyRef.current){
-        setParamValues(prev => ({
-          ...prev,
-          apiKey: user.apiKey
-        }));
-      }
+    //   if (apiKeyRef.current){
+    //     setParamValues(prev => ({
+    //       ...prev,
+    //       apiKey: user.apiKey
+    //     }));
+    //   }
 
-      if (match){
-        const newSampleRequest = sampleApiRequest.replaceAll(regex, "&apiKey=" + user.apiKey);
-        setSampleApiRequest(newSampleRequest);
-      } else {
-        const newSampleRequest = sampleApiRequest + "&apiKey=" + user.apiKey;
-        setSampleApiRequest(newSampleRequest);
-      }
-    }
+    //   if (match){
+    //     const newSampleRequest = sampleApiRequest.replaceAll(regex, "&apiKey=" + user.apiKey);
+    //     setSampleApiRequest(newSampleRequest);
+    //   } else {
+    //     const newSampleRequest = sampleApiRequest + "&apiKey=" + user.apiKey;
+    //     setSampleApiRequest(newSampleRequest);
+    //   }
+    // }
 
     const refreshSampleApiRequest = ()=>{
       setSampleApiRequest(data.example.request);
@@ -224,23 +232,55 @@ function Docs() {
                 {data.parameters.map((param, idx) => (
                   <div key={idx} className="flex flex-col min-w-[180px]">
                     <label className="text-xs font-medium mb-1">{param.name}</label>
-                    {param.name=="apiKey" ? (<input
-                      type="text"
-                      ref={apiKeyRef}
-                      value={paramValues[param.name] || ""}
-                      onChange={(e) => handleParamChange(param.name, e.target.value)}
-                      className="border px-2 py-1 rounded"
-                      placeholder={param.example}
-                    />) : (<input
-                      type="text"
-                      value={paramValues[param.name] || ""}
-                      onChange={(e) => handleParamChange(param.name, e.target.value)}
-                      className="border px-2 py-1 rounded"
-                      placeholder={param.example}
-                    />)}
-                    {user && param.name=="apiKey" && <div className='flex w-full justify-end'>
-                      <button className='justify-self-end-safe px-2 py-1 rounded-lg bg-green-500 mt-1' onClick={attachApiKey}>Attach API Key</button>
-                    </div>}
+                    <div className="flex gap-2 items-center w-full">
+                      {param.name=="apiKey" ? (
+                        <>
+                          <input
+                            type="text"
+                            ref={apiKeyRef}
+                            value={paramValues[param.name] || ""}
+                            onChange={(e) => handleParamChange(param.name, e.target.value)}
+                            className="border px-2 py-1 rounded flex-1 min-w-0"
+                            placeholder={param.example}
+                          />
+                          {user ? (
+                            <button
+                              className="px-2 py-1 rounded-lg bg-green-500 text-white text-md whitespace-nowrap"
+                              style={{minWidth: 90}}
+                              onClick={() => handleSetDefault({...param, ["example"] : user.apiKey})}
+                            >
+                              Attach API Key
+                            </button>
+                          ) : <button
+                            className="px-2 py-1 rounded-lg bg-blue-400 text-white text-md whitespace-nowrap"
+                            style={{minWidth: 90}}
+                            type="button"
+                            onClick={() => handleSetDefault(param)}
+                          >
+                            Set Default
+                          </button>}
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="text"
+                            value={paramValues[param.name] || ""}
+                            onChange={(e) => handleParamChange(param.name, e.target.value)}
+                            className="border px-2 py-1 rounded flex-1 min-w-0"
+                            placeholder={param.example}
+                          />
+                          <button
+                            className="px-2 py-1 rounded-lg bg-blue-400 text-white text-md whitespace-nowrap"
+                            style={{minWidth: 90}}
+                            type="button"
+                            onClick={() => handleSetDefault(param)}
+                          >
+                            Set Default
+                          </button>
+                        </>
+                      )}
+                    </div>
+                    {param.name=="apiKey" && !user && (<p className='text-sm pt-1'><span className='text-red-500 font-bold'>NOTE: </span>This is just a sample API Key. This is not a valid one but you cab get a valid API Key by logging in on this website</p>)}
                   </div>
                 ))}
               </div>
