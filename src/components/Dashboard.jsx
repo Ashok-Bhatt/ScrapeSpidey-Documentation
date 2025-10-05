@@ -23,6 +23,7 @@ const Dashboard = () => {
         });
         const data = res.data;
         data.sort((a, b)=>b["date"]<a["date"] ? 1 : -1);
+        console.log(data);
         setDailyData(data);
       } catch (err) {
         console.error("Error fetching daily usage:", err);
@@ -142,11 +143,14 @@ const Dashboard = () => {
       </div>
 
       {user && dashboardOptionNo==0 && <div>
+        {
+          console.log(user["apiPointsDailyLimit"])
+        }
         {<h2 className="text-xl font-bold mb-4">Daily API Usage (Last 7 Days)</h2>}
         <BarChart width={700} height={300} data={dailyData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis domain={[user["apiPointsDailyLimit"]*1.25, user["apiPointsDailyLimit"]]*1.25}/>
+          <YAxis domain={[0, Math.max(user["apiPointsDailyLimit"] * 1.2, ...dailyData.map(d => d.apiPointsUsed))]}/>
           <Tooltip />
           <Legend />
           <Bar dataKey="requestsMade" fill="#8884d8" name="Requests Made" />

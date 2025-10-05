@@ -87,26 +87,6 @@ function Docs() {
       })
     }
 
-    // const attachApiKey = () => {
-    //   const regex = /apiKey=[a-zA-Z0-9-]*/g;
-    //   const match = sampleApiRequest.match(regex);
-      
-    //   if (apiKeyRef.current){
-    //     setParamValues(prev => ({
-    //       ...prev,
-    //       apiKey: user.apiKey
-    //     }));
-    //   }
-
-    //   if (match){
-    //     const newSampleRequest = sampleApiRequest.replaceAll(regex, "&apiKey=" + user.apiKey);
-    //     setSampleApiRequest(newSampleRequest);
-    //   } else {
-    //     const newSampleRequest = sampleApiRequest + "&apiKey=" + user.apiKey;
-    //     setSampleApiRequest(newSampleRequest);
-    //   }
-    // }
-
     const refreshSampleApiRequest = ()=>{
       setSampleApiRequest(data.example.request);
       const initialParams = {};

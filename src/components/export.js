@@ -13,6 +13,7 @@ import AdminLayout from "./AdminLayout";
 import ChangeApiLimitModal from "./ChangeApiLimitModel";
 import AdminRenderer from "./AdminRenderer";
 import Loader from "./Loader";
+import FaqCard from "./FaqCard";
 
 export {
     Navbar,
@@ -30,4 +31,5 @@ export {
     ChangeApiLimitModal,
     AdminRenderer,
     Loader,
+    FaqCard,
 }

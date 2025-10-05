@@ -44,7 +44,7 @@ const documentationData = [
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/gfg/user/profile?user=ashokbhacjou&apiKey=89123443-a4a9-409e-a478-25f146dhib77",
+                    url: serverBaseUrl + "/api/v1/gfg/user/profile",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhacjou", description: "GFG username", status: "required" },
@@ -53,7 +53,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/user/profile",
+                    request: serverBaseUrl + "/api/v1/gfg/user/profile?user=ashokbhacjou&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points.",
@@ -64,7 +64,7 @@ const documentationData = [
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/gfg/user/submissions?user=ashokbhacjou&apiKey=89123443-a4a9-409e-a478-25f146dhib77",
+                    url: serverBaseUrl + "/api/v1/gfg/user/submissions",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhacjou", description: "GFG username", status: "required" },
@@ -72,7 +72,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/user/submissions",
+                    request: serverBaseUrl + "/api/v1/gfg/user/submissions?user=ashokbhacjou&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -88,7 +88,7 @@ const documentationData = [
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/codechef/user/profile?user=ashokbhatt&apiKey=89123443-a4a9-409e-a478-25f146dhib77",
+                    url: serverBaseUrl + "/api/v1/codechef/user/profile",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhatt", description: "CodeChef username", status: "required" },
@@ -98,7 +98,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/codechef/user/profile",
+                    request: serverBaseUrl + "/api/v1/codechef/user/profile?user=ashokbhatt&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points. If includeAchievements is set to true, it costs additional 0.5 API Points.",
@@ -109,7 +109,7 @@ const documentationData = [
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/codechef/user/submissions?user=ashokbhatt&apiKey=89123443-a4a9-409e-a478-25f146dhib77",
+                    url: serverBaseUrl + "/api/v1/codechef/user/submissions",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhatt", description: "CodeChef username", status: "required" },
@@ -117,7 +117,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/codechef/user/submissions",
+                    request: serverBaseUrl + "/api/v1/codechef/user/submissions?user=ashokbhatt&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -133,7 +133,7 @@ const documentationData = [
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/code360/user/profile?user=ashokbhatt&apiKey=89123443-a4a9-409e-a478-25f146dhib77",
+                    url: serverBaseUrl + "/api/v1/code360/user/profile",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhatt", description: "Code360 username", status: "required" },
@@ -143,7 +143,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/code360/user/profile",
+                    request: serverBaseUrl + "/api/v1/code360/user/profile?user=AshokBhatt&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points. If includeCertificates is set to true, it costs additional 0.5 API Points.",
@@ -159,7 +159,7 @@ const documentationData = [
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/hackerrank/user/profile?user=ashokbhatt2048&apiKey=89123443-a4a9-409e-a478-25f146dhib77",
+                    url: serverBaseUrl + "/api/v1/hackerrank/user/profile",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhatt2048", description: "Hackerrank username", status: "required" },
@@ -167,7 +167,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/hackerrank/user/profile",
+                    request: serverBaseUrl + "/api/v1/hackerrank/user/profile?user=ashokbhatt2048&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -183,17 +183,17 @@ const documentationData = [
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/interviewbit/user/profile?user=princesingh2002&apiKey=89123443-a4a9-409e-a478-25f146dhib77",
+                    url: serverBaseUrl + "/api/v1/interviewbit/user/profile",
                 },
                 parameters: [
-                    { name: "user", type: "String", example: "ashok-bhatt", description: "InterviewBit username", status: "required" },
+                    { name: "user", type: "String", example: "z", description: "InterviewBit username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
                     { name: "includeSubmissionStats", type: "Boolean", example: "true", description: "Include submission stats.", status: "optional" },
                     { name: "includeBadges", type: "Boolean", example: "true", description: "Include badges.", status: "optional" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/interviewbit/user/profile",
+                    request: serverBaseUrl + "/api/v1/interviewbit/user/profile?user=princesingh2002&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point. If includeSubmissionStats is set to true, it costs additional 0.5 API Points. If includeBadges is set to true, it costs additional 0.5 API Points.",
@@ -209,7 +209,7 @@ const documentationData = [
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/github/user/badges?user=Ashok-Bhatt&apiKey=89123443-a4a9-409e-a478-25f146dhib77",
+                    url: serverBaseUrl + "/api/v1/github/user/badges",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "Ashok-Bhatt", description: "GitHub username", status: "required" },
@@ -217,7 +217,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/github/user/badges",
+                    request: serverBaseUrl + "/api/v1/github/user/badges?user=Ashok-Bhatt&apiKey=",
                     response: [],
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -226,8 +226,68 @@ const documentationData = [
     },
 ];
 
+const teamMembers = [
+  {
+    name: "Ashok Bhatt",
+    role: "Founder & Lead Developer",
+    image: "https://media.licdn.com/dms/image/v2/D4E35AQEFh7bYa_ZEkw/profile-framedphoto-shrink_400_400/B4EZmi6hjdKwAc-/0/1759374875101?e=1760288400&v=beta&t=3fOH36MkzFV-n70W_Id9GiJ-bzJ43wYkUH9Q3Chpkng",
+    linkedin: "https://www.linkedin.com/in/ashokbhatt2048/",
+  },
+  {
+    name: "Vrajesh Pandya",
+    role: "UI/UX Designer and Developer",
+    image: "https://media.licdn.com/dms/image/v2/D4D03AQFOe6wnlSMgGw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1681141383004?e=1762387200&v=beta&t=_I8bHlMY8YiTh1uL3shGfl0smbTYGD10Td2mt1ooRmg",
+    linkedin: "https://www.linkedin.com/in/vrajesh-n-pandya-a8ba25266/",
+  },
+];
+
+const faqs = [
+  {
+    question: "What is Scrape Spidey?",
+    answer: "Scrape Spidey is a tool that allows you to fetch publicly available coding profile data from platforms like LeetCode, GeeksforGeeks, and others."
+  },
+  {
+    question: "Is Scrape Spidey affiliated with coding platforms?",
+    answer: "No, Scrape Spidey is an independent tool and is not affiliated with or endorsed by any coding platform."
+  },
+  {
+    question: "What data can I scrape using Scrape Spidey?",
+    answer: "You can scrape public profile information, including solved problems, contest participation, and statistics available on coding platforms."
+  },
+  {
+    question: "Do I need an account to use Scrape Spidey?",
+    answer: "Yes, you need to create an account on Scrape Spidey to use the service and track your scraping activity."
+  },
+  {
+    question: "Is Scrape Spidey free to use?",
+    answer: "Scrape Spidey offers free and premium plans. Free plans have daily API usage limits, while premium plans provide higher limits and additional features."
+  },
+  {
+    question: "Can Scrape Spidey access private or password-protected data?",
+    answer: "No, Scrape Spidey only accesses publicly available data. Private or restricted content is not accessible through our platform."
+  },
+  {
+    question: "How is my data used by Scrape Spidey?",
+    answer: "Your data is used only to provide scraping services and analytics. We do not sell or share your personal information with third parties."
+  },
+  {
+    question: "Are there any risks in using Scrape Spidey?",
+    answer: "Scraping is based on publicly available data, but users should ensure they comply with the terms of the original platforms. Scrape Spidey is not responsible for account restrictions imposed by third-party platforms."
+  },
+  {
+    question: "How many profiles can I scrape per day?",
+    answer: "The daily scraping limit depends on your plan. Free users have a limited number of API requests per day, while premium users have higher limits."
+  },
+  {
+    question: "How can I upgrade to a premium plan?",
+    answer: "You can upgrade to a premium plan through your account dashboard. Premium plans unlock higher API limits and additional features."
+  }
+];
+
 export {
     DAILY_API_POINT_LIMIT,
     apiUseCases,
     documentationData,
+    teamMembers,
+    faqs,
 }
