@@ -485,6 +485,8 @@ const documentationData = [
                         },
                         parameters: [
                             { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                            { name: "year", type: "Integer", example: "2025", description: "Year", status: "required" },
+                            { name: "month", type: "Integer", example: "12", description: "Month number (1-12)", status: "required" },
                         ],
                         example: {
                             text: "Try example (But use your api key first)",

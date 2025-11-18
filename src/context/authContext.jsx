@@ -49,18 +49,14 @@ export default function AuthProvider ({children}) {
         axiosInstance
         .post("/api/v1/user/signup", data)
         .then((res)=>{
-            if (res.status < 400){
-                const data = res.data;
-                setUser(data.user);
-                setToken(data.token);
-                toast.success('Account created successfully!');   
-                callback();
-            } else {
-                toast.error('Unable to create account!');
-            }
+            const data = res.data;
+            setUser(data.user);
+            setToken(data.token);
+            toast.success('Account created successfully!');   
+            callback();
         })
         .catch((error)=>{
-            toast.error('Unable to create account!');
+            toast.error(error.response.data.message);
         })
     }
 
@@ -68,22 +64,16 @@ export default function AuthProvider ({children}) {
         axiosInstance
         .post("/api/v1/user/login", data)
         .then((res)=>{
-            if (res.status < 400){
-                const data = res.data;
-                setUser(data.user);
-                setToken(data.token);
-                toast.success('Successfully logged in!');
-                callback();
-            } else {
-                setUser(null);
-                setToken(null);
-                toast.error('Unable to login!');
-            }
+            const data = res.data;
+            setUser(data.user);
+            setToken(data.token);
+            toast.success('Successfully logged in!');
+            callback();
         })
         .catch((error)=>{
             setUser(null);
             setToken(null);
-            toast.error('Unable to login!');
+            toast.error(error.response.data.message);
         })
     }
 
@@ -91,16 +81,12 @@ export default function AuthProvider ({children}) {
         axiosInstance
         .post("/api/v1/user/logout")
         .then((res)=>{
-            if (res.status < 400){
-                setToken(null);
-                setUser(null);
-                toast.success('Successfully logged out!');
-            } else {
-                toast.error('Unable to logout!');
-            }
+            setToken(null);
+            setUser(null);
+            toast.success('Successfully logged out!');
         })
         .catch((error)=>{
-            toast.error('Unable to logout!');
+            toast.error(error.response.data.message);
         })
     }
 
