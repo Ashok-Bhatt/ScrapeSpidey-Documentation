@@ -49,7 +49,6 @@ const documentationData = [
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhacjou", description: "GFG username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                    { name: "includeContests", type: "Boolean", example: "true", description: "Include contest data.", status: "optional" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
@@ -69,6 +68,7 @@ const documentationData = [
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhacjou", description: "GFG username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                    { name: "year", type: "Number", example: "2025", description: "The year for which you want to access submission history", status: "optional" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
@@ -96,25 +96,25 @@ const documentationData = [
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
             },
-            {
-                title: "Institution Info",
-                description: ["Fetches information about a given institution from GFG."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/gfg/institution/info",
-                },
-                parameters: [
-                    { name: "institution", type: "String", example: "itm-university-baroda", description: "Institution name", status: "required" },
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/institution/info?institution=IIT%20Delhi&apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
+            // {
+            //     title: "Institution Info",
+            //     description: ["Fetches information about a given institution from GFG."],
+            //     request: {
+            //         type: "GET",
+            //         colorClass: { text: "text-green-800", bg: "bg-green-200" },
+            //         url: serverBaseUrl + "/api/v1/gfg/institution/info",
+            //     },
+            //     parameters: [
+            //         { name: "institution", type: "String", example: "itm-university-baroda", description: "Institution name", status: "required" },
+            //         { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+            //     ],
+            //     example: {
+            //         text: "Try example (But use your api key first)",
+            //         request: serverBaseUrl + "/api/v1/gfg/institution/info?institution=IIT%20Delhi&apiKey=",
+            //         response: {},
+            //     },
+            //     quotasInfo: "Calling this endpoint costs 1 API Point.",
+            // },
         ],
     },
     {
@@ -169,6 +169,7 @@ const documentationData = [
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhatt2048", description: "LeetCode username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                    { name: "year", type: "Number", example: "2025", description: "The year for which heatmap is generated", status: "optional" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
@@ -188,6 +189,7 @@ const documentationData = [
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhatt2048", description: "LeetCode username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                    { name: "limit", type: "Number", example: "10", description: "The number of submissions we want", status: "optional" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
@@ -393,6 +395,7 @@ const documentationData = [
                     url: serverBaseUrl + "/api/v1/leetcode/contest/yearly-medals",
                 },
                 parameters: [
+                    { name: "excludeAcquired", type: "Boolean", example: "true", description: "To decide if one wants to exclude the acquired medal", status: "optional" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
                 ],
                 example: {
@@ -429,7 +432,6 @@ const documentationData = [
                     url: serverBaseUrl + "/api/v1/leetcode/streak",
                 },
                 parameters: [
-                    { name: "user", type: "String", example: "ashokbhatt2048", description: "LeetCode username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
                 ],
                 example: {
@@ -560,32 +562,32 @@ const documentationData = [
             },
         ],
     },
-    {
-        category: "Code360",
-        endpoints: [
-            {
-                title: "User Info",
-                description: ["Fetches user profile and progress from Code360 (Naukri)."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/code360/user/profile",
-                },
-                parameters: [
-                    { name: "user", type: "String", example: "ashokbhatt", description: "Code360 username", status: "required" },
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                    { name: "includeContests", type: "Boolean", example: "true", description: "Include contest data.", status: "optional" },
-                    { name: "includeCertificates", type: "Boolean", example: "true", description: "Include certificates data.", status: "optional" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/code360/user/profile?user=AshokBhatt&apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points. If includeCertificates is set to true, it costs additional 0.5 API Points.",
-            },
-        ],
-    },
+    // {
+    //     category: "Code360",
+    //     endpoints: [
+    //         {
+    //             title: "User Info",
+    //             description: ["Fetches user profile and progress from Code360 (Naukri)."],
+    //             request: {
+    //                 type: "GET",
+    //                 colorClass: { text: "text-green-800", bg: "bg-green-200" },
+    //                 url: serverBaseUrl + "/api/v1/code360/user/profile",
+    //             },
+    //             parameters: [
+    //                 { name: "user", type: "String", example: "ashokbhatt", description: "Code360 username", status: "required" },
+    //                 { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+    //                 { name: "includeContests", type: "Boolean", example: "true", description: "Include contest data.", status: "optional" },
+    //                 { name: "includeCertificates", type: "Boolean", example: "true", description: "Include certificates data.", status: "optional" },
+    //             ],
+    //             example: {
+    //                 text: "Try example (But use your api key first)",
+    //                 request: serverBaseUrl + "/api/v1/code360/user/profile?user=AshokBhatt&apiKey=",
+    //                 response: {},
+    //             },
+    //             quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points. If includeCertificates is set to true, it costs additional 0.5 API Points.",
+    //         },
+    //     ],
+    // },
     {
         category: "Hackerrank",
         endpoints: [
@@ -622,7 +624,7 @@ const documentationData = [
                     url: serverBaseUrl + "/api/v1/interviewbit/user/profile",
                 },
                 parameters: [
-                    { name: "user", type: "String", example: "z", description: "InterviewBit username", status: "required" },
+                    { name: "user", type: "String", example: "kartik-sharma_294", description: "InterviewBit username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
                     { name: "includeSubmissionStats", type: "Boolean", example: "true", description: "Include submission stats.", status: "optional" },
                     { name: "includeBadges", type: "Boolean", example: "true", description: "Include badges.", status: "optional" },
