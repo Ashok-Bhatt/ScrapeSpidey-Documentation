@@ -294,81 +294,6 @@ const documentationData = [
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
             },
             {
-                title: "Favorites",
-                description: ["Fetches user's public favorite lists."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/user/favorites",
-                },
-                parameters: [
-                    { name: "user", type: "String", example: "ashokbhatt2048", description: "LeetCode username", status: "required" },
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/favorites?user=ashokbhatt2048&apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
-                title: "Submission Permission",
-                description: ["Checks if user can see other submission history."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/user/submission-permission",
-                },
-                parameters: [
-                    { name: "user", type: "String", example: "ashokbhatt2048", description: "LeetCode username", status: "required" },
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/submission-permission?user=ashokbhatt2048&apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
-                title: "Active Badge",
-                description: ["Fetches user's active badge info."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/user/active-badge",
-                },
-                parameters: [
-                    { name: "user", type: "String", example: "ashokbhatt2048", description: "LeetCode username", status: "required" },
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/active-badge?user=ashokbhatt2048&apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
-                title: "Global Data",
-                description: ["Fetches global LeetCode data (site-wide stats, etc)."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/global",
-                },
-                parameters: [
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/global?apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
                 title: "Contest Rating Histogram",
                 description: ["Fetches contest rating histogram data."],
                 request: {
@@ -382,79 +307,6 @@ const documentationData = [
                 example: {
                     text: "Try example (But use your api key first)",
                     request: serverBaseUrl + "/api/v1/leetcode/contest/histogram?apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
-                title: "Yearly Medals Qualified",
-                description: ["Fetches yearly medals qualified data."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/contest/yearly-medals",
-                },
-                parameters: [
-                    { name: "excludeAcquired", type: "Boolean", example: "true", description: "To decide if one wants to exclude the acquired medal", status: "optional" },
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/contest/yearly-medals?apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
-                title: "Premium Beta Features",
-                description: ["Fetches premium beta features info."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/premium/features",
-                },
-                parameters: [
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/premium/features?apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
-                title: "Streak Counter",
-                description: ["Fetches user's streak counter info."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/streak",
-                },
-                parameters: [
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/streak?user=ashokbhatt2048&apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
-                title: "Current Timestamp",
-                description: ["Fetches current timestamp from LeetCode."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/timestamp",
-                },
-                parameters: [
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/timestamp?apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -493,24 +345,6 @@ const documentationData = [
                 example: {
                     text: "Try example (But use your api key first)",
                     request: serverBaseUrl + "/api/v1/leetcode/coding-challenge/medal?apiKey=",
-                    response: {},
-                },
-                quotasInfo: "Calling this endpoint costs 1 API Point.",
-            },
-            {
-                title: "Site Announcements",
-                description: ["Fetches site announcements from LeetCode."],
-                request: {
-                    type: "GET",
-                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/leetcode/site/announcements",
-                },
-                parameters: [
-                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                ],
-                example: {
-                    text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/site/announcements?apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
