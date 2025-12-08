@@ -4,6 +4,7 @@ import {BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, LineChart, 
 import {useAuth} from "../context/authContext.jsx"
 import {themeColors} from "../constants/classes.js"
 import {DAILY_API_POINT_LIMIT} from "../constants/index.jsx"
+import { useParams } from "react-router-dom";
 
 const Dashboard = () => {
   const [dailyData, setDailyData] = useState([]);
@@ -13,24 +14,42 @@ const Dashboard = () => {
   const [labels, setLabels] = useState([]);
   const {user, token} = useAuth();
   const dashboardOption = ["Daily API Usage", "Requests Made"]; 
+  const [project, setProject] = useState(null);
+  const {projectId} = useParams();
+
+  useEffect(()=>{
+    const getProject = async () => {
+      try {
+        const res = await axiosInstance.get(`/api/v1/project/${projectId}`, {
+          headers: {Authorization: `Bearer ${token}`},
+        });
+        const data = res.data;
+        setProject(data);
+      } catch (error) {
+        console.error("Error fetching the project details:", err);
+        console.log(err.stack);
+      }
+    };
+    if (user) getProject();
+  }, [])
 
   useEffect(() => {
     const fetchDailyUsage = async () => {
       try {
-        const res = await axiosInstance.get(`/api/v1/analytics/daily-usage`, {
+        const res = await axiosInstance.get(`/api/v1/analytics/daily-usage?apiKey=${project.apiKey}`, {
           params: { lastDays: 7 },
           headers: {Authorization: `Bearer ${token}`},
         });
         const data = res.data;
         data.sort((a, b)=>b["date"]<a["date"] ? 1 : -1);
-        console.log(data);
         setDailyData(data);
       } catch (err) {
         console.error("Error fetching daily usage:", err);
+        console.log(err.stack);
       }
     };
-    if (user) fetchDailyUsage();
-  }, []);
+    if (user && project) fetchDailyUsage();
+  }, [user, project]);
 
   useEffect(() => {
     const fetchRequestsData = async () => {
@@ -38,7 +57,7 @@ const Dashboard = () => {
         const newLabels = getLabels(interval);
         setLabels(newLabels);
 
-        const res = await axiosInstance.get(`/api/v1/analytics/requests`, {
+        const res = await axiosInstance.get(`/api/v1/analytics/requests?apiKey=${project.apiKey}`, {
           params: { previousInterval: interval },
           headers: {Authorization: `Bearer ${token}`},
         });
@@ -58,10 +77,11 @@ const Dashboard = () => {
         setRequestsData(formattedData);
       } catch (err) {
         console.error("Error fetching requests data:", err);
+        console.log(err.stack);
       }
     };
-    if (user) fetchRequestsData();
-  }, [interval]);
+    if (user && project) fetchRequestsData();
+  }, [interval, user, project]);
 
   const intervals = [
     { label: "Last 30 minutes", value: 30 * 60 * 1000 },
@@ -142,24 +162,21 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {user && dashboardOptionNo==0 && <div>
-        {
-          console.log(user["apiPointsDailyLimit"])
-        }
+      {project && dashboardOptionNo==0 && <div>
         {<h2 className="text-xl font-bold mb-4">Daily API Usage (Last 7 Days)</h2>}
         <BarChart width={700} height={300} data={dailyData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
-          <YAxis domain={[0, Math.max(user["apiPointsDailyLimit"] * 1.2, ...dailyData.map(d => d.apiPointsUsed))]}/>
+          <YAxis domain={[0, Math.max(project["apiPointsDailyLimit"] * 1.2, ...dailyData.map(d => d.apiPointsUsed))]}/>
           <Tooltip />
           <Legend />
           <Bar dataKey="requestsMade" fill="#8884d8" name="Requests Made" />
           <Bar dataKey="apiPointsUsed" fill="#82ca9d" name="API Points Used" />
-          <ReferenceLine y={user["apiPointsDailyLimit"]} stroke="red" strokeDasharray="3 3" label="Daily API Points Limit" />
+          <ReferenceLine y={project["apiPointsDailyLimit"]} stroke="red" strokeDasharray="3 3" label="Daily API Points Limit" />
         </BarChart>
       </div>}
 
-      {dashboardOptionNo==1 && <div>
+      {project && dashboardOptionNo==1 && <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Requests Data</h2>
           <select

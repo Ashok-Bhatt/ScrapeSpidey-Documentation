@@ -3,65 +3,78 @@ import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Auth, UserConsole, Home, Docs, PageNotFound, Users, Contact, About, PrivacyPolicy, TermsAndConditions, FAQ } from './pages/export.js'
-import {AuthLayout, AdminLayout} from "./components/export.js"
+import { Projects, Profile, Dashboard } from "./components/export.js"
+import { AuthLayout, AdminLayout } from "./components/export.js"
 import ThemeProvider from "./context/themeContext.jsx"
 import AuthProvider from './context/authContext.jsx'
 
 const router = createBrowserRouter(
   [
     {
-      path : "/",
-      element: <App/>,
+      path: "/",
+      element: <App />,
       children: [
         {
           path: "/",
-          element: <Home/>,
+          element: <Home />,
         },
         {
           path: "/docs",
-          element: <Docs/>,
+          element: <Docs />,
         },
         {
           path: "/auth",
           element: (<AuthLayout authentication={false}>
-            <Auth/>
+            <Auth />
           </AuthLayout>),
         },
         {
-          path: "/user-console",
+          path: "/projects",
           element: (<AuthLayout authentication={true}>
-            <UserConsole/>
+            <Projects />
+          </AuthLayout>),
+        },
+        {
+          path: "/profile",
+          element: (<AuthLayout authentication={true}>
+            <Profile />
+          </AuthLayout>),
+        },
+        {
+          path: "/dashboard/:projectId",
+          element: (<AuthLayout authentication={true}>
+            <Dashboard />
           </AuthLayout>),
         },
         {
           path: "/users",
-          element : (<AdminLayout>
-            <Users/>
+          element: (<AdminLayout>
+            <Users />
           </AdminLayout>)
         },
         {
           path: "/contact",
-          element: <Contact/>
+          element: <Contact />
         },
         {
           path: "/about",
-          element: <About/>,
+          element: <About />,
         },
         {
           path: "/faqs",
-          element: <FAQ/>,
+          element: <FAQ />,
         },
         {
           path: "/privacy-policy",
-          element: <PrivacyPolicy/>,
+          element: <PrivacyPolicy />,
         },
         {
           path: "/terms",
-          element: <TermsAndConditions/>,
+          element: <TermsAndConditions />,
         },
         {
           path: "*",
-          element: <PageNotFound/>,
+          element: <PageNotFound />,
         },
       ]
     }
@@ -71,7 +84,7 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   <AuthProvider>
     <ThemeProvider>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </ThemeProvider>
   </AuthProvider>
 )

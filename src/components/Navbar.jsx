@@ -9,15 +9,16 @@ function Navbar() {
     { name: "Home", path: "/", alwaysRender: true },
     { name: "Documentation", path: "/docs", alwaysRender: true },
     { name: "Login", path: "/auth", alwaysRender: false, authentication: false, admin: false },
-    { name: "My console", path: "/user-console", alwaysRender:false, authentication: true, admin: false },
-    { name: "Users", path: "/users", alwaysRender: false, authentication: true, admin: true}
+    { name: "Projects", path: "/projects", alwaysRender: false, authentication: true, admin: false },
+    { name: "Profile", path: "/profile", alwaysRender: false, authentication: true, admin: false },
+    { name: "Users", path: "/users", alwaysRender: false, authentication: true, admin: true }
   ];
 
   return (
     <nav className={classNames(themeColors["bg"], themeColors["text"], "w-full shadow-md")}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          
+
           {/* Logo */}
           <div className="flex h-full items-center gap-5">
             <img src="/Images/logo.png" alt="Website logo" className="h-9/10 rounded-full" />
@@ -60,13 +61,13 @@ function Navbar() {
               );
             })}
           </div>
-            
+
           {/* Theme Toggle Button */}
           <div className="flex items-center gap-10">
             <AuthRenderer authentication={true}>
-              <LogoutButton/>
+              <LogoutButton />
             </AuthRenderer>
-            <ToggleButton/>
+            <ToggleButton />
           </div>
         </div>
       </div>

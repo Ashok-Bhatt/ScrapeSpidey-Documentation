@@ -14,6 +14,8 @@ import ChangeApiLimitModal from "./ChangeApiLimitModel";
 import AdminRenderer from "./AdminRenderer";
 import Loader from "./Loader";
 import FaqCard from "./FaqCard";
+import Projects from "./Projects";
+import ProjectCard from "./ProjectCard";
 
 export {
     Navbar,
@@ -32,4 +34,6 @@ export {
     AdminRenderer,
     Loader,
     FaqCard,
+    Projects,
+    ProjectCard,
 }

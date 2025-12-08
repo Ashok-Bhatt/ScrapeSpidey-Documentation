@@ -33,6 +33,7 @@ export default function AuthProvider ({children}) {
             })
             .catch((error)=>{
                 console.log("no logged in user");
+                console.log(error.stack);
                 setUser(null);
             })
             .finally(()=>{
@@ -56,6 +57,7 @@ export default function AuthProvider ({children}) {
             callback();
         })
         .catch((error)=>{
+            console.log(error.stack);
             toast.error(error.response.data.message);
         })
     }
@@ -73,6 +75,7 @@ export default function AuthProvider ({children}) {
         .catch((error)=>{
             setUser(null);
             setToken(null);
+            console.log(error.stack);
             toast.error(error.response.data.message);
         })
     }
