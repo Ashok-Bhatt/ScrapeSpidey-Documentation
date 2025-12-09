@@ -4,41 +4,41 @@ import toast from "react-hot-toast";
 
 const AuthContext = createContext();
 
-export default function AuthProvider ({children}) {
+export default function AuthProvider({ children }) {
 
     const [user, setUser] = useState(null);
     const [checkingAuth, setCheckingAuth] = useState(true);
-    const [token, setToken] = useState((()=>{
+    const [token, setToken] = useState((() => {
         if (localStorage.getItem("token")) return localStorage.getItem("token");
         else return null;
     })());
 
-    useEffect(()=>{
+    useEffect(() => {
         localStorage.setItem("token", token);
     }, [token]);
 
     const checkAuth = async () => {
-        
+
         setCheckingAuth(true);
 
-        if (token){
+        if (token) {
             axiosInstance
-            .get(
-                `/api/v1/user/check`, 
-                {headers: {Authorization: `Bearer ${token}`}}
-            )
-            .then((res)=>{
-                const data = res.data;
-                setUser(data);
-            })
-            .catch((error)=>{
-                console.log("no logged in user");
-                console.log(error.stack);
-                setUser(null);
-            })
-            .finally(()=>{
-                setCheckingAuth(false);
-            });
+                .get(
+                    `/api/v1/user/check`,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                )
+                .then((res) => {
+                    const data = res.data;
+                    setUser(data);
+                })
+                .catch((error) => {
+                    console.log("no logged in user");
+                    console.log(error.stack);
+                    setUser(null);
+                })
+                .finally(() => {
+                    setCheckingAuth(false);
+                });
         } else {
             console.log("Token not present");
             setCheckingAuth(false);
@@ -48,53 +48,51 @@ export default function AuthProvider ({children}) {
 
     const signUp = async (data, callback) => {
         axiosInstance
-        .post("/api/v1/user/signup", data)
-        .then((res)=>{
-            const data = res.data;
-            setUser(data.user);
-            setToken(data.token);
-            toast.success('Account created successfully!');   
-            callback();
-        })
-        .catch((error)=>{
-            console.log(error.stack);
-            toast.error(error.response.data.message);
-        })
+            .post("/api/v1/user/signup", data)
+            .then((res) => {
+                const data = res.data;
+                setUser(data.user);
+                setToken(data.token);
+                toast.success('Account created successfully!');
+                callback();
+            })
+            .catch((error) => {
+                toast.error(error?.response?.data?.message || "Something Went Wrong");
+            })
     }
 
     const login = async (data, callback) => {
         axiosInstance
-        .post("/api/v1/user/login", data)
-        .then((res)=>{
-            const data = res.data;
-            setUser(data.user);
-            setToken(data.token);
-            toast.success('Successfully logged in!');
-            callback();
-        })
-        .catch((error)=>{
-            setUser(null);
-            setToken(null);
-            console.log(error.stack);
-            toast.error(error.response.data.message);
-        })
+            .post("/api/v1/user/login", data)
+            .then((res) => {
+                const data = res.data;
+                setUser(data.user);
+                setToken(data.token);
+                toast.success('Successfully logged in!');
+                callback();
+            })
+            .catch((error) => {
+                setUser(null);
+                setToken(null);
+                toast.error(error?.response?.data?.message || "Something Went Wrong");
+            })
     }
 
     const logout = async () => {
         axiosInstance
-        .post("/api/v1/user/logout")
-        .then((res)=>{
-            setToken(null);
-            setUser(null);
-            toast.success('Successfully logged out!');
-        })
-        .catch((error)=>{
-            toast.error(error.response.data.message);
-        })
+            .post("/api/v1/user/logout")
+            .then((res) => {
+                setToken(null);
+                setUser(null);
+                toast.success('Successfully logged out!');
+            })
+            .catch((error) => {
+                toast.error(error?.response?.data?.message || "Something Went Wrong");
+            })
     }
 
     return (
-        <AuthContext.Provider value={{user, setUser, checkAuth, signUp, login, logout, token,  setToken, checkingAuth, setCheckingAuth}}>
+        <AuthContext.Provider value={{ user, setUser, checkAuth, signUp, login, logout, token, setToken, checkingAuth, setCheckingAuth }}>
             {children}
         </AuthContext.Provider>
     )
