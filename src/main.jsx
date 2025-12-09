@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Auth, UserConsole, Home, Docs, PageNotFound, Users, Contact, About, PrivacyPolicy, TermsAndConditions, FAQ } from './pages/export.js'
+import { Auth, UserConsole, Home, Docs, PageNotFound, Users, Contact, About, PrivacyPolicy, TermsAndConditions, FAQ, Admin, AdminAnalytics, AdminUsers, AdminNews } from './pages/export.js'
 import { Projects, Profile, Dashboard } from "./components/export.js"
 import { AuthLayout, AdminLayout } from "./components/export.js"
 import ThemeProvider from "./context/themeContext.jsx"
@@ -47,10 +47,28 @@ const router = createBrowserRouter(
           </AuthLayout>),
         },
         {
-          path: "/users",
+          path: "/admin",
           element: (<AdminLayout>
-            <Users />
-          </AdminLayout>)
+            <Admin />
+          </AdminLayout>),
+          children: [
+            {
+              index: true,
+              element: <AdminAnalytics />
+            },
+            {
+              path: "analytics",
+              element: <AdminAnalytics />
+            },
+            {
+              path: "users",
+              element: <AdminUsers />
+            },
+            {
+              path: "news",
+              element: <AdminNews />
+            }
+          ]
         },
         {
           path: "/contact",

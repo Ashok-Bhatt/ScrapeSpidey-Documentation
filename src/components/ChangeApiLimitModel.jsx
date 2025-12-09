@@ -10,12 +10,12 @@ function ChangeApiLimitModal({ showApiLimitChanger, setShowApiLimitChanger, user
   const handleOk = () => {
     if (newLimit.trim() !== "") {
       axiosInstance.patch("/api/v1/user/daily-api-limit", { userId: user._id, newApiPointsDailyLimit: newLimit }, { headers: { Authorization: `Bearer ${token}` } })
-      .then((res)=>{
-        toast.success("Daily API Limit Changed Successfully");
-      })
-      .catch((error)=>{
-        toast.error("Unable to Change Daily API Limit");
-      })
+        .then((res) => {
+          toast.success("Daily API Limit Changed Successfully");
+        })
+        .catch((error) => {
+          toast.error(error?.response?.data?.message || "Something Went Wrong");
+        })
     }
     setShowApiLimitChanger(false);
   };

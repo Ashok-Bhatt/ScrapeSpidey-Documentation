@@ -11,7 +11,7 @@ function Navbar() {
     { name: "Login", path: "/auth", alwaysRender: false, authentication: false, admin: false },
     { name: "Projects", path: "/projects", alwaysRender: false, authentication: true, admin: false },
     { name: "Profile", path: "/profile", alwaysRender: false, authentication: true, admin: false },
-    { name: "Users", path: "/users", alwaysRender: false, authentication: true, admin: true }
+    { name: "Admin", path: "/admin", alwaysRender: false, authentication: true, admin: true }
   ];
 
   return (

@@ -9,6 +9,10 @@ import Contact from "./Contact";
 import FAQ from "./FAQ";
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsAndConditions from "./TermsAndConditions"
+import Admin from "./Admin";
+import AdminAnalytics from "./AdminAnalytics";
+import AdminUsers from "./AdminUsers";
+import AdminNews from "./AdminNews";
 
 export {
     Docs,
@@ -22,4 +26,8 @@ export {
     FAQ,
     PrivacyPolicy,
     TermsAndConditions,
+    Admin,
+    AdminAnalytics,
+    AdminUsers,
+    AdminNews,
 }

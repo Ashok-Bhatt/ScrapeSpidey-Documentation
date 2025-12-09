@@ -23,7 +23,7 @@ function Projects() {
             setProjects(res.data);
         } catch (error) {
             console.error("Error fetching projects:", error);
-            toast.error("Failed to load projects.");
+            toast.error(error?.response?.data?.message || "Something Went Wrong");
         } finally {
             setLoading(false);
         }
@@ -49,7 +49,7 @@ function Projects() {
             setShowCreateModal(false);
         } catch (error) {
             console.error("Error creating project:", error);
-            toast.error(error.response?.data?.message || "Failed to create project.");
+            toast.error(error?.response?.data?.message || "Something Went Wrong");
         }
     };
 
@@ -64,7 +64,7 @@ function Projects() {
             setUser({ ...user, apiKey: res.data.apiKey });
         } catch (error) {
             console.error("Error updating default api key:", error);
-            toast.error("Failed to update default API key.");
+            toast.error(error?.response?.data?.message || "Something Went Wrong");
         }
     };
 
@@ -79,7 +79,7 @@ function Projects() {
             toast.success("Project deleted.");
         } catch (error) {
             console.error("Error deleting project:", error);
-            toast.error("Failed to delete project.");
+            toast.error(error?.response?.data?.message || "Something Went Wrong");
         }
     };
 

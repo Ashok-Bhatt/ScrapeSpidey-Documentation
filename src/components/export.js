@@ -1,39 +1,43 @@
-import Navbar from "./Navbar";
-import ToggleButton from "./ToggleButton";
-import HeroSection from "./HeroSection";
-import UseCases from "./UseCases";
-import Footer from "./Footer";
-import LogoutButton from "./LogoutButton";
-import Profile from "./Profile";
-import Dashboard from "./Dashboard";
-import AuthLayout from "./AuthLayout";
-import AuthRenderer from "./AuthRenderer";
-import UserCard from "./UserCard";
-import AdminLayout from "./AdminLayout";
-import ChangeApiLimitModal from "./ChangeApiLimitModel";
-import AdminRenderer from "./AdminRenderer";
-import Loader from "./Loader";
-import FaqCard from "./FaqCard";
-import Projects from "./Projects";
-import ProjectCard from "./ProjectCard";
+import AdminLayout from './AdminLayout';
+import AuthLayout from './AuthLayout';
+import HeroSection from './HeroSection';
+import UseCases from './UseCases';
+import Footer from './Footer';
+import Navbar from './Navbar';
+import Loader from './Loader';
+import AuthRenderer from './AuthRenderer';
+import LogoutButton from './LogoutButton';
+import ToggleButton from './ToggleButton';
+import Projects from './Projects';
+import ProjectCard from './ProjectCard';
+import Profile from './Profile';
+import AdminRenderer from './AdminRenderer';
+import UserCard from './UserCard';
+import ChangeApiLimitModal from './ChangeApiLimitModel'; // Filename has 'Model' typo
+import Dashboard from './Dashboard';
+import FaqCard from './FaqCard';
+import UserProjectsModal from './UserProjectsModal';
+import ConfirmationModal from './ConfirmationModal';
 
 export {
-    Navbar,
-    ToggleButton,
+    AdminLayout,
+    AuthLayout,
     HeroSection,
     UseCases,
     Footer,
-    LogoutButton,
-    Profile,
-    Dashboard,
-    AuthLayout,
-    AuthRenderer,
-    UserCard,
-    AdminLayout,
-    ChangeApiLimitModal,
-    AdminRenderer,
+    Navbar,
     Loader,
-    FaqCard,
+    AuthRenderer,
+    LogoutButton,
+    ToggleButton,
     Projects,
     ProjectCard,
-}
+    Profile,
+    AdminRenderer,
+    UserCard,
+    ChangeApiLimitModal,
+    Dashboard,
+    FaqCard,
+    UserProjectsModal,
+    ConfirmationModal,
+};
