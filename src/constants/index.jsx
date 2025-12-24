@@ -39,7 +39,7 @@ const documentationData = [
             {
                 title: "User Info",
                 description: [
-                    "Fetches user profile and progress from GeeksforGeeks.",
+                    "Fetches user profile and progress from GeeksforGeeks like total problems solved, streaks, coding score, institution rank, avatar, etc.",
                 ],
                 request: {
                     type: "GET",
@@ -52,69 +52,50 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/user/profile?user=ashokbhacjou&apiKey=",
+                    request: serverBaseUrl + "/api/v1/gfg/user/profile?user=&apiKey=",
                     response: {},
                 },
-                quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points.",
+                quotasInfo: "Calling this endpoint costs 1 API Point.",
             },
             {
                 title: "Submission History",
-                description: ["Fetches submission history for the user (days with at least one submission)."],
+                description: ["Fetches submission history for the user in the given year.", "If no year is provided, it fetches the submission history for the current year."],
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/gfg/user/submissions",
+                    url: serverBaseUrl + "/api/v2/gfg/user/submissions",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhacjou", description: "GFG username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                    { name: "year", type: "Number", example: "2025", description: "The year for which you want to access submission history", status: "optional" },
+                    { name: "year", type: "Number", example: "2024", description: "Year", status: "optional" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/user/submissions?user=ashokbhacjou&apiKey=",
+                    request: serverBaseUrl + "/api/v2/gfg/user/submissions?user=&apiKey=&year=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
             },
             {
-                title: "Institution Top 3 Ranked Users",
-                description: ["Fetches the top 3 ranked users in a given institution.", "Ranks are based on GFG's leaderboard."],
+                title: "User Problems Solved",
+                description: ["Fetches the list of problems solved by the user on GFG as per the difficulty level."],
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/gfg/institution/top-3",
+                    url: serverBaseUrl + "/api/v1/gfg/user/problems",
                 },
                 parameters: [
-                    { name: "institution", type: "String", example: "itm-university-baroda", description: "Institution name", status: "required" },
+                    { name: "user", type: "String", example: "ashokbhacjou", description: "GFG username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/gfg/institution/top-3?institution=IIT%20Delhi&apiKey=",
+                    request: serverBaseUrl + "/api/v1/gfg/user/problems?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
             },
-            // {
-            //     title: "Institution Info",
-            //     description: ["Fetches information about a given institution from GFG."],
-            //     request: {
-            //         type: "GET",
-            //         colorClass: { text: "text-green-800", bg: "bg-green-200" },
-            //         url: serverBaseUrl + "/api/v1/gfg/institution/info",
-            //     },
-            //     parameters: [
-            //         { name: "institution", type: "String", example: "itm-university-baroda", description: "Institution name", status: "required" },
-            //         { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-            //     ],
-            //     example: {
-            //         text: "Try example (But use your api key first)",
-            //         request: serverBaseUrl + "/api/v1/gfg/institution/info?institution=IIT%20Delhi&apiKey=",
-            //         response: {},
-            //     },
-            //     quotasInfo: "Calling this endpoint costs 1 API Point.",
-            // },
         ],
     },
     {
@@ -134,7 +115,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/profile?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/profile?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -153,7 +134,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/language-stats?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/language-stats?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -173,7 +154,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/calendar?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/calendar?user=&apiKey=&year=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -193,7 +174,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/recent-submissions?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/recent-submissions?user=&apiKey=&limit=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -212,7 +193,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/badges?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/badges?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -231,7 +212,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/contest-ranking?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/contest-ranking?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -250,7 +231,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/skill-stats?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/skill-stats?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -269,7 +250,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/question-progress?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/question-progress?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -288,7 +269,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/leetcode/user/session-progress?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v1/leetcode/user/session-progress?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -356,7 +337,7 @@ const documentationData = [
         endpoints: [
             {
                 title: "User Info",
-                description: ["Fetches user profile and progress from CodeChef."],
+                description: ["Fetches user profile and progress from CodeChef like problems solved, contest performance, badges, skill tests, etc."],
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
@@ -370,14 +351,14 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/codechef/user/profile?user=ashokbhatt&apiKey=",
+                    request: serverBaseUrl + "/api/v1/codechef/user/profile?user=&apiKey=&includeContests=&includeAchievements=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points. If includeAchievements is set to true, it costs additional 0.5 API Points.",
             },
             {
                 title: "Submission History",
-                description: ["Fetches submission history for the user (last 6 months)."],
+                description: ["Fetches submission history for the user for the current year and the previous year."],
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
@@ -386,52 +367,72 @@ const documentationData = [
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhatt", description: "CodeChef username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                    { name: "year", type: "Number", example: "2024", description: "Year", status: "optional" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/codechef/user/submissions?user=ashokbhatt&apiKey=",
+                    request: serverBaseUrl + "/api/v1/codechef/user/submissions?user=&apiKey=&year=",
+                    response: {},
+                },
+                quotasInfo: "Calling this endpoint costs 3 API Point.",
+            },
+        ],
+    },
+    {
+        category: "Code360",
+        endpoints: [
+            {
+                title: "User Info",
+                description: ["Fetches user profile and progress from Code360 (formaly known as codestudios) like user details, avatar, streaks, badges, problems solved, contests performance, etc."],
+                request: {
+                    type: "GET",
+                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
+                    url: serverBaseUrl + "/api/v1/code360/user/profile",
+                },
+                parameters: [
+                    { name: "user", type: "String", example: "AshokBhatt", description: "Code360 username", status: "required" },
+                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                    { name: "includeContests", type: "Boolean", example: "true", description: "Include contest data.", status: "optional" },
+                ],
+                example: {
+                    text: "Try example (But use your api key first)",
+                    request: serverBaseUrl + "/api/v1/code360/user/profile?user=&apiKey=&includeContests=true",
+                    response: {},
+                },
+                quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs an additional 0.5 API Points.",
+            },
+            {
+                title: "User Submissions",
+                description: ["Fetches submission history for the user on Code360 in the given year. If year is not provided, it fetches the submission history for the current year."],
+                request: {
+                    type: "GET",
+                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
+                    url: serverBaseUrl + "/api/v1/code360/user/submission",
+                },
+                parameters: [
+                    { name: "user", type: "String", example: "AshokBhatt", description: "Code360 username", status: "required" },
+                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                    { name: "year", type: "Number", example: "2024", description: "Year", status: "optional" },
+                ],
+                example: {
+                    text: "Try example (But use your api key first)",
+                    request: serverBaseUrl + "/api/v1/code360/user/submission?user=&apiKey=&year=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
             },
         ],
     },
-    // {
-    //     category: "Code360",
-    //     endpoints: [
-    //         {
-    //             title: "User Info",
-    //             description: ["Fetches user profile and progress from Code360 (Naukri)."],
-    //             request: {
-    //                 type: "GET",
-    //                 colorClass: { text: "text-green-800", bg: "bg-green-200" },
-    //                 url: serverBaseUrl + "/api/v1/code360/user/profile",
-    //             },
-    //             parameters: [
-    //                 { name: "user", type: "String", example: "ashokbhatt", description: "Code360 username", status: "required" },
-    //                 { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-    //                 { name: "includeContests", type: "Boolean", example: "true", description: "Include contest data.", status: "optional" },
-    //                 { name: "includeCertificates", type: "Boolean", example: "true", description: "Include certificates data.", status: "optional" },
-    //             ],
-    //             example: {
-    //                 text: "Try example (But use your api key first)",
-    //                 request: serverBaseUrl + "/api/v1/code360/user/profile?user=AshokBhatt&apiKey=",
-    //                 response: {},
-    //             },
-    //             quotasInfo: "Calling this endpoint costs 1 API Point. If includeContests is set to true, it costs additional 0.5 API Points. If includeCertificates is set to true, it costs additional 0.5 API Points.",
-    //         },
-    //     ],
-    // },
     {
         category: "Hackerrank",
         endpoints: [
             {
                 title: "User Info",
-                description: ["Fetches user profile, badges, and certificates from Hackerrank."],
+                description: ["Fetches user profile data, badges, and certificates from Hackerrank."],
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/hackerrank/user/profile",
+                    url: serverBaseUrl + "/api/v2/hackerrank/user/profile",
                 },
                 parameters: [
                     { name: "user", type: "String", example: "ashokbhatt2048", description: "Hackerrank username", status: "required" },
@@ -439,7 +440,7 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/hackerrank/user/profile?user=ashokbhatt2048&apiKey=",
+                    request: serverBaseUrl + "/api/v2/hackerrank/user/profile?user=&apiKey=",
                     response: {},
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
@@ -451,24 +452,61 @@ const documentationData = [
         endpoints: [
             {
                 title: "User Info",
-                description: ["Fetches user profile, badges, and submission stats from InterviewBit."],
+                description: ["Fetches user info like profile data, problems solved as per difficulty level, and as per category, submission analysis, etc."],
                 request: {
                     type: "GET",
                     colorClass: { text: "text-green-800", bg: "bg-green-200" },
-                    url: serverBaseUrl + "/api/v1/interviewbit/user/profile",
+                    url: serverBaseUrl + "/api/v2/interviewbit/user/profile",
                 },
                 parameters: [
-                    { name: "user", type: "String", example: "kartik-sharma_294", description: "InterviewBit username", status: "required" },
+                    { name: "user", type: "String", example: "ashok-bhatt", description: "InterviewBit username", status: "required" },
                     { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
-                    { name: "includeSubmissionStats", type: "Boolean", example: "true", description: "Include submission stats.", status: "optional" },
-                    { name: "includeBadges", type: "Boolean", example: "true", description: "Include badges.", status: "optional" },
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/interviewbit/user/profile?user=princesingh2002&apiKey=",
+                    request: serverBaseUrl + "/api/v2/interviewbit/user/profile?user=&apiKey=",
                     response: {},
                 },
-                quotasInfo: "Calling this endpoint costs 1 API Point. If includeSubmissionStats is set to true, it costs additional 0.5 API Points. If includeBadges is set to true, it costs additional 0.5 API Points.",
+                quotasInfo: "Calling this endpoint costs 1 API Point.",
+            },
+            {
+                title: "User Submissions",
+                description: ["Fetches user submission data from the given year. If year is not provided, it fetches the submission history for the current year."],
+                request: {
+                    type: "GET",
+                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
+                    url: serverBaseUrl + "/api/v2/interviewbit/user/submissions",
+                },
+                parameters: [
+                    { name: "user", type: "String", example: "ashok-bhatt", description: "InterviewBit username", status: "required" },
+                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                    { name: "year", type: "Number", example: "2024", description: "Year", status: "optional" },
+                ],
+                example: {
+                    text: "Try example (But use your api key first)",
+                    request: serverBaseUrl + "/api/v2/interviewbit/user/submissions?user=&apiKey=&year=2024",
+                    response: {},
+                },
+                quotasInfo: "Calling this endpoint costs 1 API Point.",
+            },
+            {
+                title: "User Badges",
+                description: ["Fetches badges earned by the user on InterviewBit."],
+                request: {
+                    type: "GET",
+                    colorClass: { text: "text-green-800", bg: "bg-green-200" },
+                    url: serverBaseUrl + "/api/v1/interviewbit/user/badges",
+                },
+                parameters: [
+                    { name: "user", type: "String", example: "ashok-bhatt", description: "InterviewBit username", status: "required" },
+                    { name: "apiKey", type: "String", example: "89123443-a4a9-409e-a478-25f146dhib77", description: "Your API Key.", status: "required" },
+                ],
+                example: {
+                    text: "Try example (But use your api key first)",
+                    request: serverBaseUrl + "/api/v1/interviewbit/user/badges?user=&apiKey=",
+                    response: {},
+                },
+                quotasInfo: "Calling this endpoint costs 1 API Point.",
             },
         ],
     },
@@ -489,13 +527,13 @@ const documentationData = [
                 ],
                 example: {
                     text: "Try example (But use your api key first)",
-                    request: serverBaseUrl + "/api/v1/github/user/badges?user=Ashok-Bhatt&apiKey=",
+                    request: serverBaseUrl + "/api/v1/github/user/badges?user=&apiKey=",
                     response: [],
                 },
                 quotasInfo: "Calling this endpoint costs 1 API Point.",
             },
         ],
-    },
+    }
 ];
 
 const teamMembers = [
@@ -504,19 +542,17 @@ const teamMembers = [
         role: "Founder & Lead Developer",
         image: "https://media.licdn.com/dms/image/v2/D4E35AQEFh7bYa_ZEkw/profile-framedphoto-shrink_400_400/B4EZmi6hjdKwAc-/0/1759374875101?e=1760288400&v=beta&t=3fOH36MkzFV-n70W_Id9GiJ-bzJ43wYkUH9Q3Chpkng",
         linkedin: "https://www.linkedin.com/in/ashokbhatt2048/",
-    },
-    {
-        name: "Vrajesh Pandya",
-        role: "UI/UX Designer and Developer",
-        image: "https://media.licdn.com/dms/image/v2/D4D03AQFOe6wnlSMgGw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1681141383004?e=1762387200&v=beta&t=_I8bHlMY8YiTh1uL3shGfl0smbTYGD10Td2mt1ooRmg",
-        linkedin: "https://www.linkedin.com/in/vrajesh-n-pandya-a8ba25266/",
-    },
+    }
 ];
 
 const faqs = [
     {
         question: "What is Scrape Spidey?",
-        answer: "Scrape Spidey is a tool that allows you to fetch publicly available coding profile data from platforms like LeetCode, GeeksforGeeks, and others."
+        answer: "Scrape Spidey is a tool that allows you to fetch publicly available coding profile data from platforms like LeetCode, GeeksforGeeks, CodeChef, HackerRank, InterviewBit, and Code360."
+    },
+    {
+        question: "What's next with Scrape Spidey?",
+        answer: "In next updates, we will be adding endpoints for the codeforces and atcoder. We will also be adding endpoints that will provide the information about the upcoming coding contests.",
     },
     {
         question: "Is Scrape Spidey affiliated with coding platforms?",
@@ -532,7 +568,11 @@ const faqs = [
     },
     {
         question: "Is Scrape Spidey free to use?",
-        answer: "Scrape Spidey offers free and premium plans. Free plans have daily API usage limits, while premium plans provide higher limits and additional features."
+        answer: "Yes Scrape Spidey is free to use but comes with daily API Limit."
+    },
+    {
+        question: "What if I want to expand the daily API Points Limit?",
+        answer: "You can contact us using contact form and we will expand your daily API Points Limit."
     },
     {
         question: "Can Scrape Spidey access private or password-protected data?",
@@ -540,20 +580,12 @@ const faqs = [
     },
     {
         question: "How is my data used by Scrape Spidey?",
-        answer: "Your data is used only to provide scraping services and analytics. We do not sell or share your personal information with third parties."
+        answer: "Your data not used in any capacity. We do not sell or share your personal information with third parties."
     },
     {
         question: "Are there any risks in using Scrape Spidey?",
-        answer: "Scraping is based on publicly available data, but users should ensure they comply with the terms of the original platforms. Scrape Spidey is not responsible for account restrictions imposed by third-party platforms."
+        answer: "No, there's no risk at all in using the Scrape Spidey API as you are just using the data provided by Scrape Spidey. All the fetching stuff is done by Scrape Spidey."
     },
-    {
-        question: "How many profiles can I scrape per day?",
-        answer: "The daily scraping limit depends on your plan. Free users have a limited number of API requests per day, while premium users have higher limits."
-    },
-    {
-        question: "How can I upgrade to a premium plan?",
-        answer: "You can upgrade to a premium plan through your account dashboard. Premium plans unlock higher API limits and additional features."
-    }
 ];
 
 export {
