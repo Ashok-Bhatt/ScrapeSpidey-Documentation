@@ -126,7 +126,7 @@ function AdminNews() {
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">News Management</h1>
+                <h1 className={`text-2xl font-bold ${themeColors.text}`}>News Management</h1>
                 <button
                     onClick={() => { resetForm(); setShowForm(true); }}
                     className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
@@ -137,44 +137,44 @@ function AdminNews() {
 
             {showForm && (
                 <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 p-4">
-                    <div className="bg-white p-6 rounded-lg w-full max-w-lg overflow-y-auto max-h-[90vh]">
-                        <h2 className="text-xl font-bold mb-4">{isEditing ? "Update News" : "Create News"}</h2>
+                    <div className={`${themeColors.bg} border ${themeColors.border} p-6 rounded-lg w-full max-w-lg overflow-y-auto max-h-[90vh] shadow-xl`}>
+                        <h2 className={`text-xl font-bold mb-4 ${themeColors.text}`}>{isEditing ? "Update News" : "Create News"}</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium mb-1">Title</label>
+                                <label className={`block text-sm font-medium mb-1 ${themeColors.text}`}>Title</label>
                                 <input
                                     type="text" name="title" required
                                     value={formData.title} onChange={handleInputChange}
-                                    className="w-full border rounded p-2"
+                                    className={`w-full ${themeColors["bg-secondary"]} ${themeColors.text} border ${themeColors.border} rounded p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-colors`}
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1">Description</label>
+                                <label className={`block text-sm font-medium mb-1 ${themeColors.text}`}>Description</label>
                                 <textarea
                                     name="description" required rows="4"
                                     value={formData.description} onChange={handleInputChange}
-                                    className="w-full border rounded p-2"
+                                    className={`w-full ${themeColors["bg-secondary"]} ${themeColors.text} border ${themeColors.border} rounded p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-colors resize-none`}
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1">Date</label>
+                                <label className={`block text-sm font-medium mb-1 ${themeColors.text}`}>Date</label>
                                 <input
                                     type="date" name="date"
                                     value={formData.date} onChange={handleInputChange}
-                                    className="w-full border rounded p-2"
+                                    className={`w-full ${themeColors["bg-secondary"]} ${themeColors.text} border ${themeColors.border} rounded p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-colors`}
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium mb-1">Image {isEditing && "(Leave empty to keep existing)"}</label>
+                                <label className={`block text-sm font-medium mb-1 ${themeColors.text}`}>Image {isEditing && "(Leave empty to keep existing)"}</label>
                                 <input
                                     type="file" name="newsImage" accept="image/*"
                                     onChange={handleInputChange}
-                                    className="w-full border rounded p-2"
+                                    className={`w-full ${themeColors["bg-secondary"]} ${themeColors.text} border ${themeColors.border} rounded p-2 focus:ring-2 focus:ring-blue-500 outline-none transition-colors`}
                                 />
                             </div>
                             <div className="flex justify-end gap-2 mt-4">
-                                <button type="button" onClick={resetForm} className="bg-gray-300 px-4 py-2 rounded">Cancel</button>
-                                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Save</button>
+                                <button type="button" onClick={resetForm} className={`px-4 py-2 rounded ${themeColors["bg-secondary"]} border ${themeColors.border} ${themeColors.text} hover:opacity-80 transition-colors`}>Cancel</button>
+                                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors shadow-sm">Save</button>
                             </div>
                         </form>
                     </div>
@@ -184,12 +184,12 @@ function AdminNews() {
             {loading ? <p>Loading news...</p> : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {newsList.map(news => (
-                        <div key={news._id} className={`border rounded shadow overflow-hidden flex flex-col md:col-span-2 lg:col-span-3 ${themeColors.bg} dark:border-gray-700`}>
+                        <div key={news._id} className={`border rounded shadow overflow-hidden flex flex-col md:col-span-2 lg:col-span-3 ${themeColors.bg} ${themeColors.border}`}>
                             <img src={news.image} alt={news.title} className="w-full h-48 object-cover" />
                             <div className="p-4 flex-1 flex flex-col">
-                                <h3 className="text-lg font-bold mb-2">{news.title}</h3>
-                                <p className="text-sm text-gray-500 mb-2">{new Date(news.date).toDateString()}</p>
-                                <p className="text-gray-700 flex-1 line-clamp-3">{news.description}</p>
+                                <h3 className={`text-lg font-bold mb-2 ${themeColors.text}`}>{news.title}</h3>
+                                <p className={`text-sm ${themeColors.secondary} mb-2`}>{new Date(news.date).toDateString()}</p>
+                                <p className={`${themeColors.text} opacity-80 flex-1 line-clamp-3`}>{news.description}</p>
                                 <div className="mt-4 flex gap-2 justify-end">
                                     <button onClick={() => handleEdit(news)} className="text-blue-600 hover:text-blue-800 font-medium">Edit</button>
                                     <button onClick={() => onDeleteClick(news._id)} className="text-red-600 hover:text-red-800 font-medium">Delete</button>

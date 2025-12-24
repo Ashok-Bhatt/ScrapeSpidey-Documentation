@@ -26,7 +26,7 @@ const ProjectCard = ({ project, onDelete, userApiKey, onSetDefault }) => {
 
     return (
         <div
-            className={`p-4 rounded-lg border ${themeColors["border"] || "border-gray-700"} flex flex-col gap-4 shadow-sm relative overflow-hidden cursor-pointer hover:border-blue-500/50 transition-colors group`}
+            className={`p-4 rounded-lg border ${themeColors.border} flex flex-col gap-4 shadow-sm relative overflow-hidden cursor-pointer hover:border-blue-500/50 transition-colors group ${themeColors.bg}`}
         >
             {/* {isDefault && (
                 <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-bl-lg border-b border-l border-green-500/30">
@@ -35,13 +35,14 @@ const ProjectCard = ({ project, onDelete, userApiKey, onSetDefault }) => {
             )} */}
 
             <div className="flex justify-between items-start">
-                <h3 className="text-lg font-semibold truncate pr-8">{project.name}</h3>
+                <h3 className={`text-lg font-semibold truncate pr-8 ${themeColors.text}`}>{project.name}</h3>
                 <div className="flex gap-2">
                     <button
                         onClick={(e) => {
+                            e.stopPropagation();
                             onDelete(project._id);
                         }}
-                        className="p-1 rounded hover:bg-red-900/50 text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                        className="p-1 rounded hover:bg-red-500/10 text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                         title="Delete Project"
                     >
                         <Trash2 size={18} />
@@ -52,17 +53,17 @@ const ProjectCard = ({ project, onDelete, userApiKey, onSetDefault }) => {
             <div className="space-y-4">
                 {/* API Key Section */}
                 <div className="flex flex-col gap-1">
-                    <label className="text-sm text-gray-400">API Key</label>
+                    <label className={`text-sm ${themeColors.secondary}`}>API Key</label>
                     <div
-                        className="flex items-center gap-2 bg-gray-800/50 p-2 rounded cursor-default"
+                        className={`flex items-center gap-2 ${themeColors["bg-secondary"]} p-2 rounded cursor-default border ${themeColors.border}`}
                     >
-                        <code className="text-sm font-mono flex-1 truncate">
+                        <code className={`text-sm font-mono flex-1 truncate ${themeColors.text}`}>
                             {showApiKey ? project.apiKey : "•".repeat(20)}
                         </code>
-                        <button onClick={() => setShowApiKey(!showApiKey)} className="p-1 hover:text-white text-gray-400">
+                        <button onClick={(e) => { e.stopPropagation(); setShowApiKey(!showApiKey); }} className={`p-1 hover:text-blue-500 ${themeColors.secondary}`}>
                             {showApiKey ? <EyeOff size={16} /> : <Eye size={16} />}
                         </button>
-                        <button onClick={handleCopy} className="p-1 hover:text-white text-gray-400">
+                        <button onClick={(e) => { e.stopPropagation(); handleCopy(); }} className={`p-1 hover:text-blue-500 ${themeColors.secondary}`}>
                             <Copy size={16} />
                         </button>
                     </div>
@@ -78,18 +79,18 @@ const ProjectCard = ({ project, onDelete, userApiKey, onSetDefault }) => {
                             View Dashboard
                         </div>
                         <button
-                            onClick={() => onSetDefault(project.apiKey)}
+                            onClick={(e) => { e.stopPropagation(); onSetDefault(project.apiKey); }}
                             disabled={isDefault}
                             className={`px-3 py-2 rounded text-sm transition-colors border ${isDefault
-                                ? "bg-green-600/20 text-green-400 border-green-600/30 cursor-default"
-                                : "bg-gray-700 hover:bg-gray-600 text-gray-200 border-gray-600"
+                                ? "bg-green-600/10 text-green-500 border-green-600/30 cursor-default"
+                                : `${themeColors["bg-secondary"]} hover:bg-opacity-80 ${themeColors.text} ${themeColors.border}`
                                 }`}
                         >
                             {isDefault ? "Selected" : "Set as Default"}
                         </button>
                     </div>
 
-                    <div className="text-xs text-gray-500 flex justify-between pt-2 border-t border-gray-700/50">
+                    <div className={`text-xs ${themeColors.secondary} flex justify-between pt-2 border-t ${themeColors.border}`}>
                         <span>Limit: {project.apiPointsDailyLimit}</span>
                         <span>{formattedDate}</span>
                     </div>

@@ -3,7 +3,6 @@ import axiosInstance from "../utils/axiosInstance.js"
 import {BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, LineChart, Line, ReferenceLine} from "recharts";
 import {useAuth} from "../context/authContext.jsx"
 import {themeColors} from "../constants/classes.js"
-import {DAILY_API_POINT_LIMIT} from "../constants/index.jsx"
 import { useParams } from "react-router-dom";
 
 const Dashboard = () => {

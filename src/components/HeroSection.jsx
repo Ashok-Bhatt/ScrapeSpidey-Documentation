@@ -15,8 +15,8 @@ function HeroSection() {
             All your coding profiles <br /> in one API
           </h3>
           <p className="text-lg">
-            Scrape Spidey explores platforms like <span className="font-semibold">LeetCode, CodeChef, GeeksforGeeks,</span> 
-            and <span className="font-semibold">Codeforces</span>, bringing all your coding data together.
+            Scrape Spidey explores platforms like <span className="font-bold">LeetCode, CodeChef, GeeksforGeeks,</span> 
+            and <span className="font-bold">InterviewBit</span>, bringing all your coding data together.
           </p>
           <p className="text-lg">
             From solved problems and streaks to contest history, ratings, and achievements — 

@@ -8,15 +8,15 @@ function EndpointPerformanceTable({
     sortOptions
 }) {
     const getSuccessRateColor = (successRate) => {
-        if (successRate >= 95) return 'text-green-600';
-        if (successRate >= 80) return 'text-yellow-600';
-        return 'text-red-600';
+        if (successRate >= 95) return 'text-green-500';
+        if (successRate >= 80) return 'text-yellow-500';
+        return 'text-red-500';
     };
 
     return (
-        <div className={`${themeColors.bg} border rounded-lg p-6 shadow-sm`}>
+        <div className={`${themeColors.bg} border ${themeColors.border} rounded-lg p-6 shadow-sm`}>
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Endpoint Performance</h2>
+                <h2 className={`text-xl font-bold ${themeColors.text}`}>Endpoint Performance</h2>
                 {/* Sorting Controls */}
                 <div className="flex gap-2 items-center">
                     <select
@@ -32,7 +32,7 @@ function EndpointPerformanceTable({
                     </select>
                     <button
                         onClick={() => onSort(sortConfig.key)}
-                        className="px-3 py-2 border rounded-lg hover:bg-gray-100 transition-colors"
+                        className={`px-3 py-2 border ${themeColors.border} rounded-lg hover:bg-blue-500/10 ${themeColors.text} transition-colors`}
                         title="Reverse sort order"
                     >
                         {sortConfig.direction === 'asc' ? '↑' : '↓'}
@@ -42,7 +42,7 @@ function EndpointPerformanceTable({
             <div className="overflow-x-auto">
                 <table className="w-full">
                     <thead>
-                        <tr className="border-b">
+                        <tr className={`border-b ${themeColors.border} ${themeColors.secondary} text-sm`}>
                             <th className="text-left p-3">Endpoint</th>
                             <th className="text-right p-3">Total Requests</th>
                             <th className="text-right p-3">Successful</th>
@@ -55,11 +55,11 @@ function EndpointPerformanceTable({
                         {endpoints.map((endpoint, index) => {
                             const successRate = (endpoint.successfulCount / endpoint.count) * 100;
                             return (
-                                <tr key={index} className="border-b hover:bg-gray-50">
-                                    <td className="p-3 font-mono text-sm">{endpoint.endpoint}</td>
+                                <tr key={index} className={`border-b ${themeColors.border} hover:bg-blue-500/5 transition-colors ${themeColors.text}`}>
+                                    <td className="p-3 font-mono text-sm opacity-90">{endpoint.endpoint}</td>
                                     <td className="p-3 text-right font-medium">{endpoint.count.toLocaleString()}</td>
-                                    <td className="p-3 text-right text-green-600">{endpoint.successfulCount.toLocaleString()}</td>
-                                    <td className="p-3 text-right text-red-600">{endpoint.unsuccessfulCount.toLocaleString()}</td>
+                                    <td className="p-3 text-right text-green-500">{endpoint.successfulCount.toLocaleString()}</td>
+                                    <td className="p-3 text-right text-red-500">{endpoint.unsuccessfulCount.toLocaleString()}</td>
                                     <td className="p-3 text-right">{endpoint.averageResponseTime.toFixed(2)}</td>
                                     <td className={`p-3 text-right font-bold ${getSuccessRateColor(successRate)}`}>
                                         {successRate.toFixed(1)}%
@@ -70,7 +70,7 @@ function EndpointPerformanceTable({
                     </tbody>
                 </table>
                 {endpoints.length === 0 && (
-                    <p className="text-center py-8 text-gray-500">No endpoint data available for this period</p>
+                    <p className={`text-center py-8 ${themeColors.secondary}`}>No endpoint data available for this period</p>
                 )}
             </div>
         </div>

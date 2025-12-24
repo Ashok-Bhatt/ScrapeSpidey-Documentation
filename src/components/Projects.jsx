@@ -86,7 +86,7 @@ function Projects() {
     return (
         <div className="h-full p-6 w-full overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">My Projects</h2>
+                <h2 className={`text-2xl font-bold ${themeColors.text}`}>My Projects</h2>
                 <button
                     onClick={() => setShowCreateModal(true)}
                     className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
@@ -96,9 +96,9 @@ function Projects() {
             </div>
 
             {loading ? (
-                <div className="text-center py-10 text-gray-400">Loading projects...</div>
+                <div className={`text-center py-10 ${themeColors.secondary}`}>Loading projects...</div>
             ) : projects.length === 0 ? (
-                <div className="text-center py-10 text-gray-500 border-2 border-dashed border-gray-700 rounded-lg">
+                <div className={`text-center py-10 ${themeColors.secondary} border-2 border-dashed ${themeColors.border} rounded-lg`}>
                     No projects found. Create one to get started!
                 </div>
             ) : (
@@ -115,19 +115,18 @@ function Projects() {
                 </div>
             )}
 
-            {/* Create Project Modal */}
             {showCreateModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className={`bg-gray-900 border ${themeColors["border"] || "border-gray-700"} p-6 rounded-lg w-full max-w-md shadow-xl`}>
-                        <h3 className="text-xl font-bold mb-4">Create New Project</h3>
+                    <div className={`${themeColors.bg} border ${themeColors.border} p-6 rounded-lg w-full max-w-md shadow-xl`}>
+                        <h3 className={`text-xl font-bold mb-4 ${themeColors.text}`}>Create New Project</h3>
                         <form onSubmit={handleCreateProject} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-400 mb-1">Project Name</label>
+                                <label className={`block text-sm font-medium ${themeColors.secondary} mb-1`}>Project Name</label>
                                 <input
                                     type="text"
                                     value={newProjectName}
                                     onChange={(e) => setNewProjectName(e.target.value)}
-                                    className="w-full bg-gray-800 border border-gray-700 rounded p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-white"
+                                    className={`w-full ${themeColors["bg-secondary"]} border ${themeColors.border} rounded p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ${themeColors.text}`}
                                     placeholder="e.g., My Awesome App"
                                     autoFocus
                                 />
@@ -136,7 +135,7 @@ function Projects() {
                                 <button
                                     type="button"
                                     onClick={() => setShowCreateModal(false)}
-                                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-gray-200 transition-colors"
+                                    className={`px-4 py-2 ${themeColors["bg-secondary"]} hover:opacity-80 rounded ${themeColors.text} transition-colors border ${themeColors.border}`}
                                 >
                                     Cancel
                                 </button>

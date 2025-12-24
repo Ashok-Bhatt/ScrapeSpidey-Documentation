@@ -540,7 +540,7 @@ const teamMembers = [
     {
         name: "Ashok Bhatt",
         role: "Founder & Lead Developer",
-        image: "https://media.licdn.com/dms/image/v2/D4E35AQEFh7bYa_ZEkw/profile-framedphoto-shrink_400_400/B4EZmi6hjdKwAc-/0/1759374875101?e=1760288400&v=beta&t=3fOH36MkzFV-n70W_Id9GiJ-bzJ43wYkUH9Q3Chpkng",
+        image: "/Images/Team Members/ashok-bhatt.png",
         linkedin: "https://www.linkedin.com/in/ashokbhatt2048/",
     }
 ];

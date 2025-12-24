@@ -122,21 +122,21 @@ function Profile() {
         <div className="w-full md:w-64 flex flex-col gap-2">
           <button
             onClick={() => setActiveTab("personal")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${activeTab === "personal" ? "bg-blue-50 text-blue-600" : "text-gray-600 hover:bg-gray-50"
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${activeTab === "personal" ? "bg-blue-600/10 text-blue-500" : `${themeColors.secondary} hover:bg-blue-500/5`
               }`}
           >
             <User size={18} /> Personal Info
           </button>
           <button
             onClick={() => setActiveTab("security")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${activeTab === "security" ? "bg-blue-50 text-blue-600" : "text-gray-600 hover:bg-gray-50"
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${activeTab === "security" ? "bg-blue-600/10 text-blue-500" : `${themeColors.secondary} hover:bg-blue-500/5`
               }`}
           >
             <Lock size={18} /> Security
           </button>
           <button
             onClick={() => setActiveTab("developer")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${activeTab === "developer" ? "bg-blue-50 text-blue-600" : "text-gray-600 hover:bg-gray-50"
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${activeTab === "developer" ? "bg-blue-600/10 text-blue-500" : `${themeColors.secondary} hover:bg-blue-500/5`
               }`}
           >
             <Code size={18} /> Developer
@@ -144,7 +144,7 @@ function Profile() {
         </div>
 
         {/* Content Area */}
-        <div className={`flex-1 rounded-xl shadow-sm border p-6 ${themeColors.bg} dark:border-gray-700`}>
+        <div className={`flex-1 rounded-xl shadow-sm border p-6 ${themeColors.bg} ${themeColors.border}`}>
 
           {/* PERSONAL INFO TAB */}
           {activeTab === "personal" && (
@@ -154,7 +154,7 @@ function Profile() {
                   <img
                     src={user?.profilePic || "/Images/user_default_image.png"}
                     alt="Profile"
-                    className="w-24 h-24 rounded-full object-cover border-2 border-gray-100"
+                    className={`w-24 h-24 rounded-full object-cover border-2 ${themeColors.border}`}
                   />
                   <button
                     onClick={() => fileInputRef.current?.click()}
@@ -172,30 +172,30 @@ function Profile() {
                   />
                 </div>
                 <div>
-                  <h2 className="text-xl font-semibold">{user?.name}</h2>
-                  <p className="text-gray-500 text-sm">{user?.email}</p>
+                  <h2 className={`text-xl font-semibold ${themeColors.text}`}>{user?.name}</h2>
+                  <p className={`${themeColors.secondary} text-sm`}>{user?.email}</p>
                   {uploadingImg && <p className="text-blue-500 text-xs mt-1">Uploading...</p>}
                 </div>
               </div>
 
               <form onSubmit={handleUpdateInfo} className="space-y-4 max-w-lg">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                  <label className={`block text-sm font-medium ${themeColors.secondary} mb-1`}>Full Name</label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition ${themeColors["bg-secondary"]} ${themeColors.text} ${themeColors.border}`}
                     placeholder="Your Name"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio</label>
+                  <label className={`block text-sm font-medium ${themeColors.secondary} mb-1`}>Bio</label>
                   <textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     rows="3"
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition resize-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition resize-none ${themeColors["bg-secondary"]} ${themeColors.text} ${themeColors.border}`}
                     placeholder="Tell us a bit about yourself"
                   />
                 </div>
@@ -215,15 +215,15 @@ function Profile() {
           {/* SECURITY TAB */}
           {activeTab === "security" && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold border-b pb-4">Change Password</h2>
+              <h2 className={`text-xl font-semibold border-b ${themeColors.border} pb-4 ${themeColors.text}`}>Change Password</h2>
               <form onSubmit={handleChangePassword} className="space-y-4">
                 <div className="max-w-lg">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                  <label className={`block text-sm font-medium ${themeColors.secondary} mb-1`}>New Password</label>
                   <input
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
+                    className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition ${themeColors["bg-secondary"]} ${themeColors.text} ${themeColors.border}`}
                     placeholder="Min. 6 characters"
                   />
                 </div>
@@ -243,16 +243,16 @@ function Profile() {
           {/* DEVELOPER TAB */}
           {activeTab === "developer" && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold border-b pb-4">Developer Settings</h2>
+              <h2 className={`text-xl font-semibold border-b ${themeColors.border} pb-4 ${themeColors.text}`}>Developer Settings</h2>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Default API Key</label>
-                  <p className="text-sm text-gray-500 mb-3">
+                  <label className={`block text-sm font-medium ${themeColors.text} mb-2`}>Default API Key</label>
+                  <p className={`text-sm ${themeColors.secondary} mb-3`}>
                     This key is used for testing endpoints in the documentation's "Try it out" feature.
                   </p>
 
-                  <div className="flex items-center gap-2 bg-gray-50 p-2 rounded-lg border border-gray-200">
+                  <div className={`flex items-center gap-2 ${themeColors["bg-secondary"]} p-2 rounded-lg border ${themeColors.border}`}>
                     {isEditingKey ? (
                       <input
                         type="text"
@@ -267,7 +267,7 @@ function Profile() {
                       </code>
                     )}
 
-                    <div className="flex items-center gap-1 border-l pl-2 border-gray-300">
+                    <div className={`flex items-center gap-1 border-l pl-2 ${themeColors.border}`}>
                       {isEditingKey ? (
                         <>
                           <button onClick={handleUpdateApiKey} className="p-1.5 text-green-600 hover:bg-green-50 rounded">

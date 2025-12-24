@@ -9,8 +9,8 @@ function RequestDistributionChart({ successfulCount, unsuccessfulCount, totalCou
     ];
 
     return (
-        <div className={`${themeColors.bg} border rounded-lg p-6 shadow-sm`}>
-            <h2 className="text-xl font-bold mb-4">Request Distribution</h2>
+        <div className={`${themeColors.bg} border ${themeColors.border} rounded-lg p-6 shadow-sm`}>
+            <h2 className={`text-xl font-bold mb-4 ${themeColors.text}`}>Request Distribution</h2>
             <div className="flex flex-col md:flex-row items-center justify-around">
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
@@ -36,14 +36,14 @@ function RequestDistributionChart({ successfulCount, unsuccessfulCount, totalCou
                     <div className="space-y-2">
                         <div className="flex items-center gap-3">
                             <div className="w-4 h-4 bg-green-500 rounded"></div>
-                            <span className="font-medium">Successful: {successfulCount.toLocaleString()}</span>
+                            <span className={`font-medium ${themeColors.text}`}>Successful: {successfulCount.toLocaleString()}</span>
                         </div>
                         <div className="flex items-center gap-3">
                             <div className="w-4 h-4 bg-red-500 rounded"></div>
-                            <span className="font-medium">Failed: {unsuccessfulCount.toLocaleString()}</span>
+                            <span className={`font-medium ${themeColors.text}`}>Failed: {unsuccessfulCount.toLocaleString()}</span>
                         </div>
-                        <div className="pt-2 border-t">
-                            <span className="font-bold">Total: {totalCount.toLocaleString()}</span>
+                        <div className={`pt-2 border-t ${themeColors.border}`}>
+                            <span className={`font-bold ${themeColors.text}`}>Total: {totalCount.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>

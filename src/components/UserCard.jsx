@@ -16,12 +16,12 @@ function UserCard({ name, bio, email, profilePic, onSeeProjects }) {
           <div className="flex justify-between items-start">
             <div>
               <h3 className={`text-lg font-semibold truncate ${themeColors.text}`}>{name}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{email}</p>
+              <p className={`text-sm ${themeColors.secondary} truncate`}>{email}</p>
             </div>
           </div>
 
           {bio && (
-            <p className="text-xs text-gray-600 dark:text-gray-400 truncate mt-1 max-w-full">
+            <p className={`text-xs ${themeColors.secondary} opacity-80 truncate mt-1 max-w-full`}>
               {bio}
             </p>
           )}

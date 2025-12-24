@@ -6,6 +6,7 @@ import StatCard from '../components/StatCard.jsx';
 import DateRangeSelector from '../components/DateRangeSelector.jsx';
 import RequestDistributionChart from '../components/RequestDistributionChart.jsx';
 import EndpointPerformanceTable from '../components/EndpointPerformanceTable.jsx';
+import { themeColors } from '../constants/classes.js';
 
 function AdminAnalytics() {
     const [analyticsData, setAnalyticsData] = useState(null);
@@ -108,7 +109,7 @@ function AdminAnalytics() {
     return (
         <div className="h-full flex flex-col">
             <div className="mb-6">
-                <h1 className="text-3xl font-bold mb-4">Analytics Dashboard</h1>
+                <h1 className={`text-3xl font-bold mb-4 ${themeColors.text}`}>Analytics Dashboard</h1>
 
                 <DateRangeSelector
                     dateRange={dateRange}

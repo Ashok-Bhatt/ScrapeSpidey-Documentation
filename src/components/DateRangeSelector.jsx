@@ -22,7 +22,7 @@ function DateRangeSelector({
     return (
         <div className="flex flex-wrap gap-4 items-end">
             <div>
-                <label className="block text-sm font-medium mb-2">Time Period</label>
+                <label className={`block text-sm font-medium mb-2 ${themeColors.secondary}`}>Time Period</label>
                 <select
                     value={dateRange}
                     onChange={(e) => setDateRange(e.target.value)}
@@ -37,7 +37,7 @@ function DateRangeSelector({
             {dateRange === 'custom' && (
                 <>
                     <div>
-                        <label className="block text-sm font-medium mb-2">Start Date</label>
+                        <label className={`block text-sm font-medium mb-2 ${themeColors.secondary}`}>Start Date</label>
                         <input
                             type="date"
                             value={customStart}
@@ -46,7 +46,7 @@ function DateRangeSelector({
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium mb-2">End Date</label>
+                        <label className={`block text-sm font-medium mb-2 ${themeColors.secondary}`}>End Date</label>
                         <input
                             type="date"
                             value={customEnd}
