@@ -5,12 +5,12 @@ import { ExternalLink } from "lucide-react"; // for external product links
 function Footer() {
   return (
     <footer className="py-12 px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10">
-        
+      <div className="max-w-7xl mx-auto grid grid-cols-4 gap-10">
+
         {/* Company */}
-        <div>
+        <div className="flex flex-col items-center">
           <h4 className="text-lg font-semibold mb-4">Company</h4>
-          <ul className="space-y-2">
+          <ul className="flex flex-col items-center space-y-2">
             <li>
               <Link to="/about" className="transition">
                 About us
@@ -19,27 +19,10 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Legal */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Legal</h4>
-          <ul className="space-y-2">
-            <li>
-              <Link to="/terms" className="transition">
-                Terms and Conditions
-              </Link>
-            </li>
-            <li>
-              <Link to="/privacy-policy" className="transition">
-                Privacy Policy
-              </Link>
-            </li>
-          </ul>
-        </div>
-
         {/* Info */}
-        <div>
+        <div className="flex flex-col items-center">
           <h4 className="text-lg font-semibold mb-4">Info</h4>
-          <ul className="space-y-2">
+          <ul className="flex flex-col items-center space-y-2">
             <li>
               <Link to="/faqs" className="transition">
                 FAQ
@@ -54,9 +37,9 @@ function Footer() {
         </div>
 
         {/* API Resources */}
-        <div>
+        <div className="flex flex-col items-center">
           <h4 className="text-lg font-semibold mb-4">API Resources</h4>
-          <ul className="space-y-2">
+          <ul className="flex flex-col items-center space-y-2">
             <li>
               <Link to="/docs" className="transition">
                 Full documentation
@@ -71,17 +54,29 @@ function Footer() {
         </div>
 
         {/* Other Products */}
-        <div>
+        <div className="flex flex-col items-center">  
           <h4 className="text-lg font-semibold mb-4">Other Products</h4>
-          <ul className="space-y-2">
+          <ul className="flex flex-col items-center space-y-2 mt-2">
             <li>
               <a
-                href="https://queryforge.com" 
-                target="_blank" 
+                href="https://query-forge-five.vercel.app/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 transition"
               >
                 QueryForge <ExternalLink size={14} />
+              </a>
+            </li>
+          </ul>
+          <ul className="space-y-2 mt-2">
+            <li>
+              <a
+                href="https://code-folio-insights.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 transition"
+              >
+                Codefolio <ExternalLink size={14} />
               </a>
             </li>
           </ul>

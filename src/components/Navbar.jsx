@@ -1,6 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { themeColors } from "../constants/classes.js";
-import { ToggleButton, LogoutButton, AuthRenderer, AdminRenderer } from "./export.js";
+import { AuthRenderer, AdminRenderer } from "../layouts/export.js";
+import { ToggleButton, LogoutButton } from "../components/export.js";
 import classNames from "classnames";
 
 function Navbar() {
@@ -10,8 +11,8 @@ function Navbar() {
     { name: "Documentation", path: "/docs", alwaysRender: true },
     { name: "Login", path: "/auth", alwaysRender: false, authentication: false, admin: false },
     { name: "Projects", path: "/projects", alwaysRender: false, authentication: true, admin: false },
-    { name: "Profile", path: "/profile", alwaysRender: false, authentication: true, admin: false },
-    { name: "Admin", path: "/admin", alwaysRender: false, authentication: true, admin: true }
+    { name: "Profile", path: "/profile/personal", alwaysRender: false, authentication: true, admin: false },
+    { name: "Admin", path: "/admin/analytics", alwaysRender: false, authentication: true, admin: true }
   ];
 
   return (

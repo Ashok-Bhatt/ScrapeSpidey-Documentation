@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import classNames from "classnames"
-import { themeColors } from "../constants/classes";
 
 function PageNotFound() {
 
