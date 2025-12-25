@@ -1,5 +1,5 @@
 import React from 'react';
-import { themeColors } from '../constants/classes';
+import { themeColors } from "../../constants/classes.js";
 
 const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = "Confirm", cancelText = "Cancel", isDanger = false }) => {
     if (!isOpen) return null;

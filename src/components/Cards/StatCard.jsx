@@ -1,5 +1,5 @@
 import React from 'react';
-import { themeColors } from '../constants/classes.js';
+import { themeColors } from '../../constants/classes.js';
 
 function StatCard({ title, value, badge, valueColor = '' }) {
     return (

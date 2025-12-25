@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Copy, Eye, EyeOff, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
-import { themeColors } from "../constants/classes.js";
+import { themeColors } from "../../constants/classes.js";
+import axiosInstance from "../../utils/axiosInstance.js";
+import { ConfirmationModal } from "../export.js";
+import { useAuth } from "../../context/authContext.jsx";
 
-const ProjectCard = ({ project, onDelete, userApiKey, onSetDefault }) => {
+const ProjectCard = ({ project, projects, setProjects, userApiKey, onSetDefault }) => {
     const [showApiKey, setShowApiKey] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const isDefault = project.apiKey === userApiKey;
     const navigate = useNavigate();
+    const { token } = useAuth();
 
     const handleNavigate = () => {
-        navigate(`/dashboard/${project._id}`);
+        navigate(`/dashboard/${project._id}/daily-usage`);
     };
 
     const handleCopy = () => {
         navigator.clipboard.writeText(project.apiKey);
         toast.success("API Key Copied!");
+    };
+
+    const handleDeleteProject = async (projectId) => {
+        try {
+            await axiosInstance.delete(`/api/v1/project/${projectId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setShowDeleteModal(false);
+            setProjects((prev) => prev.filter((p) => p._id !== projectId));
+            toast.success("Project deleted.");
+        } catch (error) {
+            console.error("Error deleting project:", error);
+            toast.error(error?.response?.data?.message || "Something Went Wrong");
+        }
     };
 
     const formattedDate = new Date(project.createdAt).toLocaleDateString([], {
@@ -28,19 +47,20 @@ const ProjectCard = ({ project, onDelete, userApiKey, onSetDefault }) => {
         <div
             className={`p-4 rounded-lg border ${themeColors.border} flex flex-col gap-4 shadow-sm relative overflow-hidden cursor-pointer hover:border-blue-500/50 transition-colors group ${themeColors.bg}`}
         >
-            {/* {isDefault && (
-                <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-bl-lg border-b border-l border-green-500/30">
-                    Default
-                </div>
-            )} */}
 
             <div className="flex justify-between items-start">
-                <h3 className={`text-lg font-semibold truncate pr-8 ${themeColors.text}`}>{project.name}</h3>
+                <div className="flex items-center">
+                    <h3 className={`text-lg font-semibold truncate pr-8 ${themeColors.text}`}>{project.name}</h3>
+                    {isDefault && (
+                        <div className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-lg border-b border-l border-green-500/30">
+                            Default
+                        </div>
+                    )}
+                </div>
                 <div className="flex gap-2">
                     <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onDelete(project._id);
+                        onClick={() => {
+                            setShowDeleteModal(true);
                         }}
                         className="p-1 rounded hover:bg-red-500/10 text-red-500 transition-colors opacity-0 group-hover:opacity-100"
                         title="Delete Project"
@@ -96,6 +116,14 @@ const ProjectCard = ({ project, onDelete, userApiKey, onSetDefault }) => {
                     </div>
                 </div>
             </div>
+
+            <ConfirmationModal
+                isOpen={showDeleteModal}
+                title="Delete Project"
+                message="Are you sure you want to delete this project? This action cannot be undone."
+                onConfirm={() => handleDeleteProject(project._id)}
+                onClose={() => setShowDeleteModal(false)}
+            />
         </div>
     );
 };

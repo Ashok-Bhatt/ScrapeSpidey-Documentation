@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import axiosInstance from "../utils/axiosInstance.js";
 import { useAuth } from "../context/authContext.jsx";
 import toast from "react-hot-toast";
-import ProjectCard from "./ProjectCard";
+import { ProjectCard, CreateProjectModal } from "../components/export.js";
 import { Plus } from "lucide-react";
 import { themeColors } from "../constants/classes.js";
 
@@ -10,7 +10,6 @@ function Projects() {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const [newProjectName, setNewProjectName] = useState("");
     const { token, user, setUser } = useAuth();
 
 
@@ -33,19 +32,15 @@ function Projects() {
         fetchProjects();
     }, [fetchProjects]);
 
-    const handleCreateProject = async (e) => {
-        e.preventDefault();
-        if (!newProjectName.trim()) return toast.error("Project name is required");
-
+    const handleCreateProject = async (name) => {
         try {
             const res = await axiosInstance.post(
                 "/api/v1/project",
-                { name: newProjectName },
+                { name },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setProjects((prev) => [res.data, ...prev]);
             toast.success("Project created successfully!");
-            setNewProjectName("");
             setShowCreateModal(false);
         } catch (error) {
             console.error("Error creating project:", error);
@@ -64,21 +59,6 @@ function Projects() {
             setUser({ ...user, apiKey: res.data.apiKey });
         } catch (error) {
             console.error("Error updating default api key:", error);
-            toast.error(error?.response?.data?.message || "Something Went Wrong");
-        }
-    };
-
-    const handleDeleteProject = async (projectId) => {
-        if (!window.confirm("Are you sure you want to delete this project? This action cannot be undone.")) return;
-
-        try {
-            await axiosInstance.delete(`/api/v1/project/${projectId}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            setProjects((prev) => prev.filter((p) => p._id !== projectId));
-            toast.success("Project deleted.");
-        } catch (error) {
-            console.error("Error deleting project:", error);
             toast.error(error?.response?.data?.message || "Something Went Wrong");
         }
     };
@@ -107,7 +87,8 @@ function Projects() {
                         <ProjectCard
                             key={project._id}
                             project={project}
-                            onDelete={handleDeleteProject}
+                            projects={projects}
+                            setProjects={setProjects}
                             userApiKey={user?.apiKey}
                             onSetDefault={handleSetDefaultApiKey}
                         />
@@ -115,41 +96,11 @@ function Projects() {
                 </div>
             )}
 
-            {showCreateModal && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className={`${themeColors.bg} border ${themeColors.border} p-6 rounded-lg w-full max-w-md shadow-xl`}>
-                        <h3 className={`text-xl font-bold mb-4 ${themeColors.text}`}>Create New Project</h3>
-                        <form onSubmit={handleCreateProject} className="space-y-4">
-                            <div>
-                                <label className={`block text-sm font-medium ${themeColors.secondary} mb-1`}>Project Name</label>
-                                <input
-                                    type="text"
-                                    value={newProjectName}
-                                    onChange={(e) => setNewProjectName(e.target.value)}
-                                    className={`w-full ${themeColors["bg-secondary"]} border ${themeColors.border} rounded p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none ${themeColors.text}`}
-                                    placeholder="e.g., My Awesome App"
-                                    autoFocus
-                                />
-                            </div>
-                            <div className="flex justify-end gap-3 mt-6">
-                                <button
-                                    type="button"
-                                    onClick={() => setShowCreateModal(false)}
-                                    className={`px-4 py-2 ${themeColors["bg-secondary"]} hover:opacity-80 rounded ${themeColors.text} transition-colors border ${themeColors.border}`}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded text-white transition-colors"
-                                >
-                                    Create
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
+            <CreateProjectModal
+                isOpen={showCreateModal}
+                onClose={() => setShowCreateModal(false)}
+                onCreate={handleCreateProject}
+            />
         </div>
     );
 }

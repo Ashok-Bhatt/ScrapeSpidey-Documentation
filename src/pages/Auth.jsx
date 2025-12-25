@@ -85,9 +85,6 @@ export default function AuthPage() {
           >
             {isSignUp ? "Sign Up" : "Login"}
           </button>
-
-
-
         </form>
 
         {/* Toggle Mode */}

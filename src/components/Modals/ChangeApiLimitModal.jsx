@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axiosInstance from '../utils/axiosInstance';
-import { useAuth } from '../context/authContext';
+import axiosInstance from "../../utils/axiosInstance.js";
+import { useAuth } from "../../context/authContext.jsx";
 import toast from 'react-hot-toast';
 
 function ChangeApiLimitModal({ showApiLimitChanger, setShowApiLimitChanger, user }) {

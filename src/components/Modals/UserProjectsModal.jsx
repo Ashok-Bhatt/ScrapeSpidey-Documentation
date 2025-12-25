@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axiosInstance from '../utils/axiosInstance';
-import { useAuth } from '../context/authContext';
+import axiosInstance from "../../utils/axiosInstance.js";
+import { useAuth } from "../../context/authContext.jsx";
 import toast from 'react-hot-toast';
-import { themeColors } from '../constants/classes';
+import { themeColors } from "../../constants/classes.js";
 
 function UserProjectsModal({ user, onClose }) {
     const [projects, setProjects] = useState([]);
@@ -10,8 +10,6 @@ function UserProjectsModal({ user, onClose }) {
     const { token } = useAuth();
     const [editingProject, setEditingProject] = useState(null);
     const [newLimit, setNewLimit] = useState("");
-
-    console.log(editingProject);
 
     useEffect(() => {
         if (user) {

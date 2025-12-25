@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import { UserCard } from '../components/export.js';
-import UserProjectsModal from '../components/UserProjectsModal.jsx';
+import { UserCard, UserProjectsModal } from '../components/export.js';
 import { useAuth } from '../context/authContext.jsx';
 import { conf } from '../utils/config.js';
 import { themeColors } from '../constants/classes.js';
@@ -58,7 +57,7 @@ function Users() {
         <div className="h-full flex flex-col">
             <h1 className={`text-2xl font-bold mb-4 ${themeColors.text}`}>Manage Users</h1>
             <div
-                className='flex flex-col h-full w-full overflow-y-auto p-4 gap-4' // Added gap and padding
+                className='flex flex-col h-full w-full overflow-y-auto p-4 gap-4 no-scrollbar'
                 ref={el => setScrollableElement(el)}
             >
                 {users.map((user) => (

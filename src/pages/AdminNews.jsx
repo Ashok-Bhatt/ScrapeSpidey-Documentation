@@ -3,8 +3,9 @@ import axios from 'axios';
 import { conf } from '../utils/config';
 import { useAuth } from '../context/authContext';
 import toast from 'react-hot-toast';
-import { ConfirmationModal } from '../components/export.js';
+import { ConfirmationModal, NewsCard } from '../components/export.js';
 import { themeColors } from '../constants/classes.js';
+import { AdminRenderer } from '../layouts/export.js';
 
 function AdminNews() {
     const [newsList, setNewsList] = useState([]);
@@ -127,12 +128,14 @@ function AdminNews() {
         <div>
             <div className="flex justify-between items-center mb-6">
                 <h1 className={`text-2xl font-bold ${themeColors.text}`}>News Management</h1>
-                <button
-                    onClick={() => { resetForm(); setShowForm(true); }}
-                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-                >
-                    Create News
-                </button>
+                <AdminRenderer>
+                    <button
+                        onClick={() => { resetForm(); setShowForm(true); }}
+                        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                    >
+                        Create News
+                    </button>
+                </AdminRenderer>
             </div>
 
             {showForm && (
@@ -184,18 +187,13 @@ function AdminNews() {
             {loading ? <p>Loading news...</p> : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {newsList.map(news => (
-                        <div key={news._id} className={`border rounded shadow overflow-hidden flex flex-col md:col-span-2 lg:col-span-3 ${themeColors.bg} ${themeColors.border}`}>
-                            <img src={news.image} alt={news.title} className="w-full h-48 object-cover" />
-                            <div className="p-4 flex-1 flex flex-col">
-                                <h3 className={`text-lg font-bold mb-2 ${themeColors.text}`}>{news.title}</h3>
-                                <p className={`text-sm ${themeColors.secondary} mb-2`}>{new Date(news.date).toDateString()}</p>
-                                <p className={`${themeColors.text} opacity-80 flex-1 line-clamp-3`}>{news.description}</p>
-                                <div className="mt-4 flex gap-2 justify-end">
-                                    <button onClick={() => handleEdit(news)} className="text-blue-600 hover:text-blue-800 font-medium">Edit</button>
-                                    <button onClick={() => onDeleteClick(news._id)} className="text-red-600 hover:text-red-800 font-medium">Delete</button>
-                                </div>
-                            </div>
-                        </div>
+                        <NewsCard
+                            key={news._id}
+                            news={news}
+                            onEdit={handleEdit}
+                            onDelete={onDeleteClick}
+                            themeColors={themeColors}
+                        />
                     ))}
                 </div>
             )}

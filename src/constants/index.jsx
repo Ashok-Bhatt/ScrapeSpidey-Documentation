@@ -588,10 +588,26 @@ const faqs = [
     },
 ];
 
+const aboutInfo = [
+    {
+      title: "Who We Are",
+      description: "Scrape Spidey is your go-to platform for extracting web data effortlessly. We help developers, analysts, and businesses access the information they need",
+    },
+    {
+      title: "Our Vision",
+      description: "Our vision is to make web data accessible to everyone. We aim to empower users with tools that are intuitive, fast, and reliable — turning the web into a playground of insights.",
+    },
+    {
+      title: "What We Do",
+      description: "Provide user-friendly web scraping tools Enable automated data extraction from multiple websites Offer analytics-ready data in structured formats",
+    },
+];
+
 export {
     DAILY_API_POINT_LIMIT,
     apiUseCases,
     documentationData,
     teamMembers,
     faqs,
+    aboutInfo,
 }

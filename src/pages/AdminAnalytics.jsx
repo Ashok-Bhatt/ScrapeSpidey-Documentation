@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance.js';
 import { useAuth } from '../context/authContext.jsx';
 import toast from 'react-hot-toast';
-import StatCard from '../components/StatCard.jsx';
-import DateRangeSelector from '../components/DateRangeSelector.jsx';
-import RequestDistributionChart from '../components/RequestDistributionChart.jsx';
-import EndpointPerformanceTable from '../components/EndpointPerformanceTable.jsx';
+import { StatCard, DateRangeSelector, RequestDistributionChart, EndpointPerformanceTable } from '../components/export.js';
 import { themeColors } from '../constants/classes.js';
 
 function AdminAnalytics() {
@@ -107,7 +104,7 @@ function AdminAnalytics() {
     };
 
     return (
-        <div className="h-full flex flex-col">
+        <div className="flex flex-col gap-6">
             <div className="mb-6">
                 <h1 className={`text-3xl font-bold mb-4 ${themeColors.text}`}>Analytics Dashboard</h1>
 
@@ -128,7 +125,7 @@ function AdminAnalytics() {
                     <p className="text-xl text-gray-500">Loading analytics data...</p>
                 </div>
             ) : analyticsData ? (
-                <div className="flex-1 overflow-y-auto space-y-6">
+                <div className="space-y-6">
                     {/* Statistics Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <StatCard

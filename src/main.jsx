@@ -2,9 +2,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Auth, Home, Docs, PageNotFound, Contact, About, PrivacyPolicy, TermsAndConditions, FAQ, Admin, AdminAnalytics, Users, AdminNews } from './pages/export.js'
-import { Projects, Profile, Dashboard } from "./components/export.js"
-import { AuthLayout, AdminLayout } from "./components/export.js"
+import { Auth, Home, Docs, PageNotFound, Contact, About, FAQ, Admin, AdminAnalytics, Users, AdminNews, Updates, Projects, Profile, PersonalInfo, Security, DeveloperSettings, Dashboard, DailyApiUsage, RequestData } from './pages/export.js'
+import { AuthLayout, AdminLayout } from "./layouts/export.js"
 import ThemeProvider from "./context/themeContext.jsx"
 import AuthProvider from './context/authContext.jsx'
 
@@ -39,12 +38,44 @@ const router = createBrowserRouter(
           element: (<AuthLayout authentication={true}>
             <Profile />
           </AuthLayout>),
+          children: [
+            {
+              index: true,
+              element: <PersonalInfo />
+            },
+            {
+              path: "personal",
+              element: <PersonalInfo />
+            },
+            {
+              path: "security",
+              element: <Security />
+            },
+            {
+              path: "developer",
+              element: <DeveloperSettings />
+            }
+          ]
         },
         {
           path: "/dashboard/:projectId",
           element: (<AuthLayout authentication={true}>
             <Dashboard />
           </AuthLayout>),
+          children: [
+            {
+              index: true,
+              element: <DailyApiUsage />
+            },
+            {
+              path: "daily-usage",
+              element: <DailyApiUsage />
+            },
+            {
+              path: "requests",
+              element: <RequestData />
+            }
+          ]
         },
         {
           path: "/admin",
@@ -83,12 +114,8 @@ const router = createBrowserRouter(
           element: <FAQ />,
         },
         {
-          path: "/privacy-policy",
-          element: <PrivacyPolicy />,
-        },
-        {
-          path: "/terms",
-          element: <TermsAndConditions />,
+          path: "/updates",
+          element: <Updates />,
         },
         {
           path: "*",
