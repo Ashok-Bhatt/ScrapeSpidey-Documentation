@@ -1,10 +1,10 @@
 import React from 'react';
-import { themeColors } from "../constants/classes.js";
+import { themeColors } from "../../constants/classes.js";
 import { FolderOpen } from "lucide-react";
 
 function UserCard({ name, bio, email, profilePic, onSeeProjects }) {
   return (
-    <div className={`p-4 rounded-lg border ${themeColors["border"] || "border-gray-200 dark:border-gray-700"} flex flex-col gap-4 shadow-sm relative overflow-hidden transition-colors hover:border-blue-500/50 ${themeColors.bg}`}>
+    <div className={`p-4 rounded-lg border ${themeColors["border"] || "border-gray-200 dark:border-gray-700"} flex flex-col gap-4 shadow-sm relative transition-colors hover:border-blue-500/50 ${themeColors.bg}`}>
       <div className="flex items-start gap-4">
         <img
           src={profilePic || "/Images/user_default_image.png"}
@@ -16,12 +16,12 @@ function UserCard({ name, bio, email, profilePic, onSeeProjects }) {
           <div className="flex justify-between items-start">
             <div>
               <h3 className={`text-lg font-semibold truncate ${themeColors.text}`}>{name}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{email}</p>
+              <p className={`text-sm ${themeColors.secondary} truncate`}>{email}</p>
             </div>
           </div>
 
           {bio && (
-            <p className="text-xs text-gray-600 dark:text-gray-400 truncate mt-1 max-w-full">
+            <p className={`text-xs ${themeColors.secondary} opacity-80 truncate mt-1 max-w-full`}>
               {bio}
             </p>
           )}

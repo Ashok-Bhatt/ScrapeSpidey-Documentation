@@ -1,43 +1,55 @@
-import AdminLayout from './AdminLayout';
-import AuthLayout from './AuthLayout';
 import HeroSection from './HeroSection';
 import UseCases from './UseCases';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import Loader from './Loader';
-import AuthRenderer from './AuthRenderer';
 import LogoutButton from './LogoutButton';
 import ToggleButton from './ToggleButton';
-import Projects from './Projects';
-import ProjectCard from './ProjectCard';
-import Profile from './Profile';
-import AdminRenderer from './AdminRenderer';
-import UserCard from './UserCard';
-import ChangeApiLimitModal from './ChangeApiLimitModel'; // Filename has 'Model' typo
-import Dashboard from './Dashboard';
-import FaqCard from './FaqCard';
-import UserProjectsModal from './UserProjectsModal';
-import ConfirmationModal from './ConfirmationModal';
+import Team from './Team';
+// import DailyApiUsage from './DailyApiUsage';
+// import RequestData from './RequestData';
+import DateRangeSelector from './DateRangeSelector';
+import EndpointPerformanceTable from './EndpointPerformanceTable';
+import RequestDistributionChart from './RequestDistributionChart';
+
+// Cards
+import AboutCard from './Cards/AboutCard';
+import FaqCard from './Cards/FaqCard';
+import MemberCard from './Cards/MemberCard';
+import NewsCard from './Cards/NewsCard';
+import ProjectCard from './Cards/ProjectCard';
+import StatCard from './Cards/StatCard';
+import UserCard from './Cards/UserCard';
+
+// Modals
+import ChangeApiLimitModal from './Modals/ChangeApiLimitModal';
+import ConfirmationModal from './Modals/ConfirmationModal';
+import CreateProjectModal from './Modals/CreateProjectModal';
+import UserProjectsModal from './Modals/UserProjectsModal';
 
 export {
-    AdminLayout,
-    AuthLayout,
     HeroSection,
     UseCases,
     Footer,
     Navbar,
     Loader,
-    AuthRenderer,
     LogoutButton,
     ToggleButton,
-    Projects,
+    Team,
+    // DailyApiUsage,
+    // RequestData,
+    DateRangeSelector,
+    EndpointPerformanceTable,
+    RequestDistributionChart,
+    AboutCard,
+    FaqCard,
+    MemberCard,
+    NewsCard,
     ProjectCard,
-    Profile,
-    AdminRenderer,
+    StatCard,
     UserCard,
     ChangeApiLimitModal,
-    Dashboard,
-    FaqCard,
-    UserProjectsModal,
     ConfirmationModal,
+    CreateProjectModal,
+    UserProjectsModal,
 };
